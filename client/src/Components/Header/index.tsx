@@ -1,37 +1,44 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Tooltip,
+} from "@material-ui/core";
 
-import useStyles from "./styles";
-import { Box } from "@material-ui/core";
+import AddShoppingCartSharpIcon from "@material-ui/icons/AddShoppingCartSharp";
+import GroupAddRoundedIcon from "@material-ui/icons/GroupAddRounded";
+
+import makeStyles from "./styles";
 
 interface HeaderProps {
-  themetype: "light" | "dark";
+  themeType: "light" | "dark";
 }
 
-const Header: React.FC<HeaderProps> = ({ themetype }) => {
-  const classes = useStyles();
+const Header: React.FC<HeaderProps> = ({ themeType }) => {
+  const classes = makeStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar color="transparent" position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            MyCart
-          </Typography>
-          <Box>
-            <Button color="primary" variant="outlined">
-              Login
-            </Button>
-            <Button color="primary" variant="outlined">
-              Sign in
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar color="transparent" position="static">
+      <Toolbar className={classes.navWrapper}>
+        <Typography component="div" variant="h4">
+          MyCart
+        </Typography>
+        <div>
+          <Tooltip title="login">
+            <IconButton className={classes.navButton}>
+              <GroupAddRoundedIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="cart">
+            <IconButton className={classes.navButton}>
+              <AddShoppingCartSharpIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 

@@ -13,7 +13,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header themetype={"dark"} />
+      <Header themeType={"dark"} />
       <Container maxWidth={"lg"}>
         <main className={classes.mainWrapper}>
           <Typography variant="h3"> Welcome to MyCart </Typography>{" "}

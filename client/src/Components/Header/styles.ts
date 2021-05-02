@@ -1,13 +1,12 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  navWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  menuButton: {
+  navButton: {
     marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
   },
 }));
