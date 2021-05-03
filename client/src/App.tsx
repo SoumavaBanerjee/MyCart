@@ -7,6 +7,8 @@ import useStyles from "./styles";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
+import HomeScreen from "./Screens/Home/HomeScreen";
+
 const App = () => {
   const classes = useStyles();
 
@@ -16,7 +18,8 @@ const App = () => {
       <Header themeType={"dark"} />
       <Container maxWidth={"lg"}>
         <main className={classes.mainWrapper}>
-          <Typography variant="h3"> Welcome to MyCart </Typography>{" "}
+          <h2>Latest Products</h2>
+          <HomeScreen />
         </main>
       </Container>
       <Footer />
