@@ -5,5 +5,6 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    minWidth: "10vh",
   },
 }));

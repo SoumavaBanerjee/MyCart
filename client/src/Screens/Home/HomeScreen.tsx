@@ -11,7 +11,7 @@ const HomeScreen: FC = () => {
     <>
       <Grid container>
         {products.map((productItem) => (
-          <Grid key={productItem._id} item sm={12} md={6} lg={4}>
+          <Grid key={productItem._id} item sm={12} md={4} lg={3}>
             <Product product={productItem} />
           </Grid>
         ))}
