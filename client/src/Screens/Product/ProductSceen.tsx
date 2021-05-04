@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Paper,
-  Button,
-  Typography,
-  Divider,
-  List,
-  ListItem,
-} from "@material-ui/core";
+import { Grid, Paper, Button, Typography, Divider } from "@material-ui/core";
 
 import { Rating } from "@material-ui/lab";
 
