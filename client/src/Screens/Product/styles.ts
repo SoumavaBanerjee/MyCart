@@ -27,4 +27,18 @@ export default makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  buyWrapper: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    margin: theme.spacing(1),
+    [theme.breakpoints.down("md")]: {
+      margin: "0",
+      marginTop: "4px",
+    },
+  },
+  mobileFullWidth: {
+    [theme.breakpoints.down("md")]: {
+      minWidth: "100%",
+    },
+  },
 }));

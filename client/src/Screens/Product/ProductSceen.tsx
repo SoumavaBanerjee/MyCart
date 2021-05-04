@@ -15,9 +15,19 @@ interface matchId {
 
 interface Prop extends RouteComponentProps<matchId> {}
 
-const ProductSceen: React.FC<Prop> = ({ match }) => {
+const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
   const classes = useStyles();
   const product = Products.find((product) => product._id === match.params.id);
+
+  if (!product) {
+    return (
+      <>
+        <h3>
+          Opps! Product is not found! Try to refresh the page and try later
+        </h3>
+      </>
+    );
+  }
 
   return (
     <>
@@ -40,8 +50,8 @@ const ProductSceen: React.FC<Prop> = ({ match }) => {
                 height: "100%",
                 overflow: "hidden",
               }}
-              src={product?.image}
-              alt={product?.name}
+              src={product.image}
+              alt={product.name}
             />
           </div>
         </Grid>
@@ -57,7 +67,7 @@ const ProductSceen: React.FC<Prop> = ({ match }) => {
               component="h4"
               color="primary"
             >
-              {product?.name}
+              {product.name}
             </Typography>
             <Divider />
             <Typography
@@ -66,7 +76,7 @@ const ProductSceen: React.FC<Prop> = ({ match }) => {
               component="h5"
             >
               <strong>Price:</strong>
-              <br />${product?.price}
+              <br />${product.price}
             </Typography>
             <Divider />
             <Typography
@@ -74,8 +84,10 @@ const ProductSceen: React.FC<Prop> = ({ match }) => {
               variant="body1"
               component="p"
             >
-              <Rating precision={0.5} value={product?.rating} readOnly /> (
-              {product?.numReviews})
+              <strong>Rating:</strong>
+              <br />
+              <Rating precision={0.5} value={product.rating} readOnly /> (
+              {product.numReviews})
             </Typography>
             <Divider />
             <Typography
@@ -83,12 +95,47 @@ const ProductSceen: React.FC<Prop> = ({ match }) => {
               variant="subtitle1"
               component="h5"
             >
-              <strong>Description: </strong> <br /> {product?.description}
+              <strong>Description: </strong> <br /> {product.description}
             </Typography>
           </Paper>
         </Grid>
-        <Grid item sm={12} md={3}>
-          <Paper>Hey this is paper</Paper>
+        <Grid item sm={12} md={3} className={classes.mobileFullWidth}>
+          <Paper
+            className={classes.buyWrapper}
+            variant="outlined"
+            elevation={3}
+          >
+            <Typography
+              className={classes.descriptionText}
+              variant="h6"
+              component="h5"
+            >
+              <strong>Price:</strong>
+              <br />${product.price}
+            </Typography>
+            <Divider />
+            <Typography
+              className={`${classes.descriptionText}`}
+              variant="h6"
+              component="h5"
+            >
+              <strong>Status:</strong>
+              <br />
+              {product.countInStock > 0
+                ? "In Stock"
+                : "Currently out of stock. Will be available later"}
+            </Typography>
+            <Divider />
+            <Button
+              className={classes.ButtonWrapper}
+              variant="contained"
+              color="secondary"
+              fullWidth
+              disabled={product.countInStock === 0}
+            >
+              Buy
+            </Button>
+          </Paper>
         </Grid>
       </Grid>
     </>

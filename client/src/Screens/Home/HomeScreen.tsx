@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Grid, Paper, Typography, Box } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Product from "../../Components/Product/Product";
 
 // for testing

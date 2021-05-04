@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  ThemeProvider,
-  CssBaseline,
-  Typography,
-  Container,
-} from "@material-ui/core";
+import { ThemeProvider, CssBaseline, Container } from "@material-ui/core";
 import theme from "./theme";
 import useStyles from "./styles";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
