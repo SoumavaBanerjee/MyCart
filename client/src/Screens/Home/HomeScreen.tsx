@@ -9,6 +9,9 @@ import products from "../../products";
 const HomeScreen: FC = () => {
   return (
     <>
+      <Typography component="h2" variant="h3">
+        Latest Products
+      </Typography>
       <Grid container>
         {products.map((productItem) => (
           <Grid key={productItem._id} item sm={12} md={4} lg={3}>

@@ -7,6 +7,8 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
+import { Link } from "react-router-dom";
+
 import AddShoppingCartSharpIcon from "@material-ui/icons/AddShoppingCartSharp";
 import GroupAddRoundedIcon from "@material-ui/icons/GroupAddRounded";
 
@@ -22,9 +24,11 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
   return (
     <AppBar color="transparent" position="static">
       <Toolbar className={classes.navWrapper}>
-        <Typography component="div" variant="h4">
-          MyCart
-        </Typography>
+        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Typography component="div" variant="h4">
+            MyCart
+          </Typography>
+        </Link>
         <div>
           <Tooltip title="login">
             <IconButton className={classes.navButton}>
