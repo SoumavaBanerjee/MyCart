@@ -121,9 +121,13 @@ const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
             >
               <strong>Status:</strong>
               <br />
-              {product.countInStock > 0
-                ? "In Stock"
-                : "Currently out of stock. Will be available later"}
+              {product.countInStock > 0 ? (
+                <p className={classes.successText}>In Stock</p>
+              ) : (
+                <p className={classes.dangerText}>
+                  Currently out of stock. Will be available later
+                </p>
+              )}
             </Typography>
             <Divider />
             <Button

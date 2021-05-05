@@ -33,13 +33,7 @@ const Product: FC<productProp> = ({ product }) => {
             image={product.image}
           />
           <CardContent>
-            <Typography
-              gutterBottom
-              variant="body1"
-              color="primary"
-              component="div"
-              style={{ padding: "5px" }}
-            >
+            <Typography gutterBottom variant="h5" color="primary" component="p">
               {product.name}
             </Typography>
             <Typography

@@ -41,4 +41,10 @@ export default makeStyles((theme) => ({
       minWidth: "100%",
     },
   },
+  successText: {
+    color: theme.palette.success.main,
+  },
+  dangerText: {
+    color: theme.palette.error.main,
+  },
 }));

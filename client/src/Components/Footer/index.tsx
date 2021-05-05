@@ -9,7 +9,7 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footerWrapper}>
       <Box>
-        <Typography variant="body2" component="text">
+        <Typography variant="body2" component="p">
           Copyright &copy; MyCart
         </Typography>
       </Box>
