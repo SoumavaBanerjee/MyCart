@@ -1,13 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { Grid, Paper, Button, Typography, Divider } from "@material-ui/core";
-
 import { Rating } from "@material-ui/lab";
-
-import React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
+import * as api from "../../api/products";
+
 // for testing
-import Products from "../../products";
 import useStyles from "./styles";
+import { product } from "../../Types";
 
 interface matchId {
   id: string;
@@ -17,7 +17,16 @@ interface Prop extends RouteComponentProps<matchId> {}
 
 const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
   const classes = useStyles();
-  const product = Products.find((product) => product._id === match.params.id);
+  const [product, setProduct] = useState<product | undefined>();
+  // const product = Products.find((product) => product._id === match.params.id);
+
+  useEffect(() => {
+    const fetchProductItem = async () => {
+      const { data } = await api.getProductItem(match.params.id);
+      setProduct(data);
+    };
+    fetchProductItem();
+  }, [match]);
 
   if (!product) {
     return (
