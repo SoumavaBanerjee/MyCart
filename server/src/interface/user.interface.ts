@@ -5,6 +5,6 @@ export interface IUser extends Document {
   email: string;
   password: string;
   isAdmin: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
