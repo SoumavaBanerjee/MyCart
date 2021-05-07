@@ -1,20 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
-import mockProducts from "../data/mock-products";
+import express from "express";
+import { getAllProducts, getProduct } from "../controllers/product.controller";
 
 const router = express.Router();
 
-router.get("/products", (req: Request, res: Response, next: NextFunction) => {
-  return res.json(mockProducts);
-});
-
-router.get(
-  "/products/:id",
-  (req: Request, res: Response, next: NextFunction) => {
-    const product = mockProducts.find(
-      (product) => product._id === req.params.id
-    );
-    return res.json(product);
-  }
-);
+router.get("/products", getAllProducts);
+router.get("/products/:id", getProduct);
 
 export { router as productRouter };

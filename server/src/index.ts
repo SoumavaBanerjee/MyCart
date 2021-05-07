@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // api endpoints
 app.use(homeRouter);
-app.use("/api/", productRouter);
+app.use("/api", productRouter);
 
 app.listen(5000, () => {
   console.info(`app running on ${environment} mode at port ${PORT} `);
