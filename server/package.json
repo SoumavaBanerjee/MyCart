@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
+    "data:import": "ts-node src/seeder.ts ",
+    "data:destroy": "ts-node src/seeder.ts -d ",
     "transpile": "tsc"
   },
   "keywords": [],
   "author": "Soumava Banerjee",
   "license": "MIT",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.5.1",
