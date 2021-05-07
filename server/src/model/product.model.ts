@@ -1,5 +1,23 @@
 import mongoose, { Schema } from "mongoose";
-import { IProduct } from "../interface";
+import { IProduct, IReview } from "../interface";
+
+const ReviewSchema: Schema<IReview> = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+      reuired: true,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
 const ProductSchema: Schema = new Schema(
   {
@@ -38,6 +56,7 @@ const ProductSchema: Schema = new Schema(
       required: true,
       default: 0,
     },
+    reviews: [ReviewSchema],
     numReviews: {
       type: Number,
       required: true,
@@ -47,4 +66,5 @@ const ProductSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<IProduct>("Product", ProductSchema);
+const Product = mongoose.model<IProduct>("Product", ProductSchema);
+export default Product;
