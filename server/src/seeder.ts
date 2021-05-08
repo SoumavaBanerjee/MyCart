@@ -26,7 +26,7 @@ const importData = async () => {
     // insert new stuff
     const createdUsers = await User.insertMany(mockUsers);
 
-    // extract admin user from DB (it's first one in the array). get it into our mock products array.
+    // extract admin user from DB (first in the array). get it into our mock products array.
     const adminUser = createdUsers[0]._id;
     const sampleProducts = productData.map((product) => {
       return {
