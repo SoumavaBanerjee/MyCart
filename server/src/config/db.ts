@@ -9,7 +9,8 @@ export const connectDB = async () => {
       useFindAndModify: true,
     });
 
-    console.info(`connected to db at ${process.env.MONGO_URI}`);
+    if (process.env.NODE_ENV === "development")
+      console.info(`connected to db at ${process.env.MONGO_URI}`);
   } catch (error) {
     console.error(error);
     process.exit(1);
@@ -24,7 +25,8 @@ export const connectLocalDB = async () => {
       useCreateIndex: true,
       useFindAndModify: true,
     });
-    console.info(`connected to db at ${process.env.MONGO_LOCAL_URI}`);
+    if (process.env.NODE_ENV === "development")
+      console.info(`connected to db at ${process.env.MONGO_LOCAL_URI}`);
   } catch (error) {
     console.error(error);
     process.exit(1);
