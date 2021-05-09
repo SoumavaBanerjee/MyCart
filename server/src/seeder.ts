@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import connectDB from "./config/db";
+import { connectDB, connectLocalDB } from "./config/db";
 
 import dotenv from "dotenv";
 import User from "./model/user.model";
@@ -10,7 +10,8 @@ import { mockUsers } from "./data/user";
 import Order from "./model/order.model";
 
 dotenv.config();
-connectDB();
+
+connectLocalDB();
 
 /**
  * imports seeder data to MongoDB Atlas
@@ -26,7 +27,7 @@ const importData = async () => {
     // insert new stuff
     const createdUsers = await User.insertMany(mockUsers);
 
-    // extract admin user from DB (it's first one in the array). get it into our mock products array.
+    // extract admin user from DB (first in the array). get it into our mock products array.
     const adminUser = createdUsers[0]._id;
     const sampleProducts = productData.map((product) => {
       return {
