@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import connectDB from "./config/db";
+import { connectDB, connectLocalDB } from "./config/db";
 
 import dotenv from "dotenv";
 import User from "./model/user.model";
@@ -10,7 +10,8 @@ import { mockUsers } from "./data/user";
 import Order from "./model/order.model";
 
 dotenv.config();
-connectDB();
+
+connectLocalDB();
 
 /**
  * imports seeder data to MongoDB Atlas

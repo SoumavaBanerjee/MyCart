@@ -2,7 +2,7 @@ import { expect } from "chai";
 import User from "../../src/model/user.model";
 import { IUser } from "../../src/interface";
 
-describe("user", () => {
+describe("user model", () => {
   it("should be invalid if name is empty", (done) => {
     const user: IUser = new User();
     user.validate((err) => {
