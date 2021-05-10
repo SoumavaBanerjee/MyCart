@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 
 import { getProducts } from "../../api/products";
 
-export const fechProducts = () => async (
+export const fetchProducts = () => async (
   dispatch: Dispatch<FetchProductActions>
 ) => {
   dispatch({ type: ProductListActionType.FETCH_PRODUCTS });

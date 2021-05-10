@@ -15,7 +15,7 @@ const initialState: ProductListState = {
   loading: false,
 };
 
-export const productListReducer = (
+const productListReducer = (
   state: ProductListState = initialState,
   action: FetchProductActions
 ): ProductListState => {
@@ -30,3 +30,5 @@ export const productListReducer = (
       return state;
   }
 };
+
+export default productListReducer;
