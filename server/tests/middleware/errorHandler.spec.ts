@@ -8,13 +8,14 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe("custom error handler", () => {
-  it("should throw error on malformed url", (done) => {
+  it("should throw error on server errors", (done) => {
     chai
       .request(server)
       .get("http://localhost:5000/api/products/23")
       .end((err, res) => {
         expect(err).to.exist;
         expect(err).to.have.property("message");
+        expect(err).property("message").length.greaterThan(0);
         done();
       });
   });

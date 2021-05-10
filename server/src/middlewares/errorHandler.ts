@@ -1,12 +1,13 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import HttpException from "../exceptions/httpException";
-export const errorHandler = (
-  error: HttpException,
+export const errorHandler: ErrorRequestHandler = (
+  error: Error,
   request: Request,
   response: Response,
   next: NextFunction
 ) => {
-  const status = 500;
+  const statusCode = response.statusCode || 500;
+
   if (process.env.NODE_ENV === "development") console.log(error);
-  response.status(500).send(error);
+  response.status(statusCode).send({ message: error.message });
 };

@@ -14,6 +14,11 @@ export const getAllProducts = asyncHandler(
 export const getProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const product: IProduct | null = await Product.findById(req.params.id);
+    if (!product) {
+      res.status(404);
+      throw new Error("resource not found");
+    }
+
     res.status(200).json(product);
   }
 );
