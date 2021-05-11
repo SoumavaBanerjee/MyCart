@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { Grid, Typography, LinearProgress } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import Product from "../../Components/Product/Product";
 
 import useAction from "../../hooks/useAction";
@@ -11,6 +12,8 @@ const HomeScreen: FC = () => {
     (state) => state.productList
   );
 
+  console.log(error);
+
   // memoize it later using useMemo
   useEffect(() => {
     fetchProducts();
@@ -19,7 +22,7 @@ const HomeScreen: FC = () => {
 
   return (
     <>
-      <Typography component="h2" variant="h3">
+      <Typography component="h2" variant="h3" style={{ marginBottom: "16px" }}>
         Latest Products
       </Typography>
       {loading ? (
@@ -28,9 +31,9 @@ const HomeScreen: FC = () => {
           color="primary"
         />
       ) : error ? (
-        <Typography variant="h2" component="h2">
-          Error Occured
-        </Typography>
+        <Alert variant="outlined" severity="error">
+          Something went wrong
+        </Alert>
       ) : (
         <Grid container>
           {data.map((productItem) => (
