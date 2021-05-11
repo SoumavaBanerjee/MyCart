@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, LinearProgress } from "@material-ui/core";
 import Product from "../../Components/Product/Product";
 
 import useAction from "../../hooks/useAction";
@@ -23,7 +23,10 @@ const HomeScreen: FC = () => {
         Latest Products
       </Typography>
       {loading ? (
-        <h3>Loading...</h3>
+        <LinearProgress
+          style={{ marginTop: "4px", marginBottom: "4px" }}
+          color="primary"
+        />
       ) : error ? (
         <Typography variant="h2" component="h2">
           Error Occured

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Paper, Button, Typography, Divider } from "@material-ui/core";
+import {
+  Grid,
+  Paper,
+  Button,
+  Typography,
+  Divider,
+  LinearProgress,
+} from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { Link, RouteComponentProps } from "react-router-dom";
 
@@ -31,9 +38,10 @@ const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
   if (!product) {
     return (
       <>
-        <h3>
-          Opps! Product is not found! Try to refresh the page and try later
-        </h3>
+        <LinearProgress
+          style={{ marginTop: "4px", marginBottom: "4px" }}
+          color="primary"
+        />
       </>
     );
   }
