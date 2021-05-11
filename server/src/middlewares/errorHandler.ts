@@ -6,8 +6,8 @@ export const errorHandler: ErrorRequestHandler = (
   response: Response,
   next: NextFunction
 ) => {
-  const statusCode = response.statusCode || 500;
+  const statusCode = response.statusCode === 200 ? 500 : response.statusCode;
 
   if (process.env.NODE_ENV === "development") console.log(error);
-  response.status(statusCode).send({ message: error.message });
+  response.status(statusCode).json({ message: error.message });
 };
