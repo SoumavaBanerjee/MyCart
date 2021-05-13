@@ -10,6 +10,7 @@ import Footer from "./Components/Footer";
 
 import HomeScreen from "./Screens/Home/HomeScreen";
 import ProductScreen from "./Screens/Product/ProductSceen";
+import CartScreen from "./Screens/Cart/CartScreen";
 
 const App = () => {
   const classes = useStyles();
@@ -23,6 +24,7 @@ const App = () => {
           <main className={classes.mainWrapper}>
             <Route path="/" exact component={HomeScreen} />
             <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" component={CartScreen} />
           </main>
         </Container>
         <Footer />

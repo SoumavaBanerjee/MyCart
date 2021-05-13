@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Paper,
@@ -6,7 +6,11 @@ import {
   Typography,
   Divider,
   LinearProgress,
+  FormControl,
+  Select,
+  InputLabel,
 } from "@material-ui/core";
+
 import { Alert, Rating } from "@material-ui/lab";
 import { Link, RouteComponentProps } from "react-router-dom";
 
@@ -21,9 +25,12 @@ interface matchId {
 
 interface Prop extends RouteComponentProps<matchId> {}
 
-const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
+const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
   const classes = useStyles();
 
+  const [quantity, setQuantity] = useState(0);
+
+  console.log(quantity);
   // const product = Products.find((product) => product._id === match.params.id);
 
   const { fetchProductDetails } = useAction();
@@ -35,6 +42,10 @@ const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
     fetchProductDetails(match.params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [match]);
+
+  const cartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    history.push(`/cart/${match.params.id}?quantity=${quantity}`);
+  };
 
   return (
     <>
@@ -152,14 +163,56 @@ const ProductSceen: React.FC<Prop> = ({ match }): JSX.Element => {
                   )}
                 </Typography>
                 <Divider />
+                {data.countInStock > 0 && (
+                  <div className={classes.quantityControllerWrapper}>
+                    <Typography
+                      className={`${classes.descriptionText}`}
+                      variant="h6"
+                      component="h5"
+                    >
+                      <strong>Qty:</strong>
+                    </Typography>
+                    <FormControl
+                      variant="filled"
+                      style={{ marginTop: "8px", marginBottom: "8px" }}
+                    >
+                      <InputLabel id="qty-label">Qty</InputLabel>
+                      <Select
+                        native
+                        labelId="qty-label"
+                        id="qty-label"
+                        value={quantity}
+                        // issue: https://github.com/mui-org/material-ui/issues/16065
+                        onChange={(e: React.ChangeEvent<{ value: any }>) => {
+                          setQuantity(e.target.value);
+                        }}
+                      >
+                        {/* <MenuItem value={10}>Ten</MenuItem> */}
+                        {[...Array(data.countInStock).keys()].map(
+                          (quantityNum) => (
+                            <option
+                              key={quantityNum + 1}
+                              value={quantityNum + 1}
+                            >
+                              {quantityNum + 1}
+                            </option>
+                          )
+                        )}
+                      </Select>
+                    </FormControl>
+                  </div>
+                )}
+
+                <Divider />
                 <Button
                   className={classes.ButtonWrapper}
+                  onClick={cartHandler}
                   variant="contained"
                   color="secondary"
                   fullWidth
                   disabled={data.countInStock === 0}
                 >
-                  Buy
+                  Add To Cart
                 </Button>
               </Paper>
             </Grid>
