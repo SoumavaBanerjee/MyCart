@@ -32,7 +32,7 @@ const HomeScreen: FC = () => {
         />
       ) : error ? (
         <Alert variant="outlined" severity="error">
-          Something went wrong
+          {error}
         </Alert>
       ) : (
         <Grid container>
