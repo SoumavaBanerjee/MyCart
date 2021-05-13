@@ -1,37 +1,48 @@
-import React, { FC, useState, useEffect } from "react";
-import * as api from "../../api/products";
-
-import { Grid, Typography } from "@material-ui/core";
+import React, { FC, useEffect } from "react";
+import { Grid, Typography, LinearProgress } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import Product from "../../Components/Product/Product";
 
-// for testing
-import { product } from "../../Types";
+import useAction from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const HomeScreen: FC = () => {
-  const [products, setProducts] = useState<product[] | undefined>([]);
+  const { fetchProducts } = useAction();
+  const { data, error, loading } = useTypedSelector(
+    (state) => state.productList
+  );
 
+  console.log(error);
+
+  // memoize it later using useMemo
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await api.getProducts();
-      setProducts(data);
-    };
-
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <Typography component="h2" variant="h3">
+      <Typography component="h2" variant="h3" style={{ marginBottom: "16px" }}>
         Latest Products
       </Typography>
-      <Grid container>
-        {products &&
-          products.map((productItem) => (
+      {loading ? (
+        <LinearProgress
+          style={{ marginTop: "4px", marginBottom: "4px" }}
+          color="primary"
+        />
+      ) : error ? (
+        <Alert variant="outlined" severity="error">
+          {error}
+        </Alert>
+      ) : (
+        <Grid container>
+          {data.map((productItem) => (
             <Grid key={productItem._id} item sm={12} md={4} lg={3}>
               <Product product={productItem} />
             </Grid>
           ))}
-      </Grid>
+        </Grid>
+      )}
     </>
   );
 };

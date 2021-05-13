@@ -36,6 +36,10 @@ export default makeStyles((theme) => ({
       marginTop: "4px",
     },
   },
+  quantityControllerWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
   mobileFullWidth: {
     [theme.breakpoints.down("md")]: {
       minWidth: "100%",

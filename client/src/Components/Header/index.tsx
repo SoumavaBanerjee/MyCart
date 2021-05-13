@@ -30,16 +30,20 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
           </Typography>
         </Link>
         <div>
-          <Tooltip title="login">
-            <IconButton className={classes.navButton}>
-              <GroupAddRoundedIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="cart">
-            <IconButton className={classes.navButton}>
-              <AddShoppingCartSharpIcon />
-            </IconButton>
-          </Tooltip>
+          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <Tooltip title="login">
+              <IconButton className={classes.navButton}>
+                <GroupAddRoundedIcon />
+              </IconButton>
+            </Tooltip>
+          </Link>
+          <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>
+            <Tooltip title="cart">
+              <IconButton className={classes.navButton}>
+                <AddShoppingCartSharpIcon />
+              </IconButton>
+            </Tooltip>
+          </Link>
         </div>
       </Toolbar>
     </AppBar>

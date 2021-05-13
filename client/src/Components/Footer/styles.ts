@@ -4,7 +4,6 @@ export default makeStyles((theme) => ({
   footerWrapper: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    minWidth: "10vh",
+    margin: theme.spacing(6),
   },
 }));

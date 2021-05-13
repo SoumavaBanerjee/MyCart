@@ -7,6 +7,8 @@ import { IProduct } from "../interface";
 export const getAllProducts = asyncHandler(
   async (req: Request, res: Response) => {
     const products: IProduct[] = await Product.find();
+    // for testing. turn it off in prod
+    // throw new Error("Something went wrong");
     res.status(200).json(products);
   }
 );
