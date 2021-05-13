@@ -11,7 +11,7 @@ import Order from "./model/order.model";
 
 dotenv.config();
 
-connectLocalDB();
+connectDB();
 
 /**
  * imports seeder data to MongoDB Atlas
