@@ -3,16 +3,16 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
 
-const localStorageCartItems = localStorage.getItem("cartItems")
-  ? JSON.stringify(localStorage.getItem("cartItems"))
+const localCartItems = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems")!)
   : [];
 
-console.log(localStorageCartItems);
+console.log(localCartItems);
 
 // type the cart properly later
 const initialState = {
   Cart: {
-    cartItems: localStorageCartItems as any,
+    cartItems: localCartItems,
   },
 };
 export const store = createStore(

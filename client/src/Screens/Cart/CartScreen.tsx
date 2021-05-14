@@ -1,9 +1,23 @@
 import React from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
 
-interface Props {}
+interface matchId {
+  id: string;
+}
 
-const CartScreen: React.FC<Props> = () => {
-  return <div>CART SCREEN</div>;
+interface Props extends RouteComponentProps<matchId> {}
+
+const CartScreen: React.FC<Props> = ({ match, location, history }) => {
+  const productId = match.params.id;
+  const quantity = location.search;
+
+  console.log(quantity);
+
+  return (
+    <>
+      <div>CART SCREEN</div>
+    </>
+  );
 };
 
 export default CartScreen;
