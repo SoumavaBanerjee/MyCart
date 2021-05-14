@@ -10,6 +10,7 @@ export const addProductToCart =
   (id: string, quantity: number) =>
   async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
     const { data } = await getProductItem(id);
+
     dispatch({
       type: CartActionType.CART_ADD_ITEMS,
       payload: {

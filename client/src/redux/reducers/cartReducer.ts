@@ -26,15 +26,17 @@ const cartReducer = (
 ): cartState => {
   switch (action.type) {
     case CartActionType.CART_ADD_ITEMS:
+      const item = action.payload;
+
       const itemExists = state.cartItems.find(
-        (item) => action.payload.product === item.product
+        (cartItem) => cartItem.product === item.product
       );
 
       if (itemExists) {
         return {
           ...state,
-          cartItems: state.cartItems.map((item) =>
-            item.product === itemExists.product ? itemExists : item
+          cartItems: state.cartItems.map((cartItem) =>
+            cartItem.product === itemExists.product ? item : cartItem
           ),
         };
       } else {
