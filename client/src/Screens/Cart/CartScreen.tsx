@@ -12,11 +12,9 @@ import {
   List,
   ListItem,
   Divider,
-  LinearProgress,
   FormControl,
   InputLabel,
   Select,
-  ListItemText,
   Button,
 } from "@material-ui/core";
 
@@ -184,11 +182,13 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                 <Typography component="span" variant="h6">
                   <strong>
                     ${" "}
-                    {cartItems.reduce(
-                      (accumulator, item) =>
-                        accumulator + item.price * item.quantity,
-                      0
-                    )}
+                    {cartItems
+                      .reduce(
+                        (accumulator, item) =>
+                          accumulator + item.price * item.quantity,
+                        0
+                      )
+                      .toFixed(2)}
                   </strong>
                 </Typography>
               </ListItem>
@@ -213,11 +213,13 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                 <Typography color="primary" component="span" variant="h5">
                   <strong>
                     ${" "}
-                    {cartItems.reduce(
-                      (accumulator, item) =>
-                        accumulator + item.price * item.quantity,
-                      0
-                    )}
+                    {cartItems
+                      .reduce(
+                        (accumulator, item) =>
+                          accumulator + item.price * item.quantity,
+                        0
+                      )
+                      .toFixed(2)}
                   </strong>
                 </Typography>
               </ListItem>

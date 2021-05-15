@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = `http://localhost:5000/api/products`;
+const url = `http://192.168.0.102:5000/api/products`;
 
 export const getProducts = () => axios.get(url);
 
