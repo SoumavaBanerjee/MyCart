@@ -29,3 +29,14 @@ export const addProductToCart =
       JSON.stringify(getState().Cart.cartItems)
     );
   };
+
+export const removeProductFromCart =
+  (id: string) =>
+  async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
+    dispatch({
+      type: CartActionType.CART_REMOVE_ITEMS,
+      payload: {
+        product: id,
+      },
+    });
+  };

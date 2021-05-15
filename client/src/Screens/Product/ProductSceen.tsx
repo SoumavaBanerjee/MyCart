@@ -68,7 +68,7 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
             <Button
               className={classes.ButtonWrapper}
               variant="outlined"
-              color="secondary"
+              color="primary"
             >
               Go back
             </Button>
@@ -207,7 +207,7 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
                   className={classes.ButtonWrapper}
                   onClick={cartHandler}
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   fullWidth
                   disabled={data.countInStock === 0}
                 >

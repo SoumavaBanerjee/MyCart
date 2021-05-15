@@ -7,7 +7,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {
   Grid,
   Paper,
-  Button,
+  IconButton,
   Typography,
   List,
   ListItem,
@@ -16,7 +16,12 @@ import {
   FormControl,
   InputLabel,
   Select,
+  ListItemText,
+  Button,
 } from "@material-ui/core";
+
+import DeleteIcon from "@material-ui/icons/Delete";
+
 import { Alert } from "@material-ui/lab";
 import useStyles from "./styles";
 
@@ -47,11 +52,16 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
 
   return (
     <>
-      <Typography component="h2" variant="h3" style={{ marginBottom: "16px" }}>
-        Your Cart
+      <Typography component="h2" variant="h4" style={{ margin: "36px 0" }}>
+        Your Cart (
+        {cartItems.reduce(
+          (accumulator, item) => accumulator + item.quantity,
+          0
+        )}{" "}
+        items )
       </Typography>
       <Grid container>
-        <Grid item md={8}>
+        <Grid item md={7}>
           {cartItems.length === 0 ? (
             <Alert variant="outlined" severity="info">
               <Typography component="p">
@@ -66,7 +76,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
               <Paper elevation={3}>
                 <List>
                   {cartItems.map((item) => (
-                    <ListItem key={item.product}>
+                    <ListItem className={classes.listItem} key={item.product}>
                       <div
                         className={`${classes.cartItem} ${classes.ListWrapper}`}
                       >
@@ -83,7 +93,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                       <div
                         className={`${classes.cartItem} ${classes.ListWrapper}`}
                       >
-                        <Typography variant="h6" component="div">
+                        <Typography variant="body1" component="div">
                           <Link
                             className={classes.cartLinkWrapper}
                             to={`/products/${item.product}`}
@@ -92,48 +102,60 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                           </Link>
                         </Typography>
                       </div>
-                      <Divider absolute />
+
                       <div
                         className={`${classes.cartItem} ${classes.ListWrapper}`}
                       >
-                        <Typography variant="h6" component="div">
+                        <Typography variant="body1" component="div">
                           <strong>$ {item.price}</strong>
                         </Typography>
                       </div>
-                      <Divider absolute />
-                      <div
-                        className={`${classes.cartItem} ${classes.ListWrapper}`}
-                      >
-                        <FormControl
-                          variant="filled"
-                          style={{ marginTop: "8px", marginBottom: "8px" }}
+
+                      <div className={classes.quantityButtonWrapper}>
+                        <div
+                          className={`${classes.cartItem} ${classes.ListWrapper}`}
                         >
-                          <InputLabel id="qty-label">Qty</InputLabel>
-                          <Select
-                            native
-                            labelId="qty-label"
-                            id="qty-label"
-                            value={item.quantity}
-                            // issue: https://github.com/mui-org/material-ui/issues/16065
-                            onChange={(e) => {
-                              addProductToCart(
-                                item.product,
-                                Number(e.target.value)
-                              );
-                            }}
+                          <FormControl
+                            variant="filled"
+                            style={{ marginTop: "8px", marginBottom: "8px" }}
                           >
-                            {[...Array(item.countInStock).keys()].map(
-                              (quantityNum) => (
-                                <option
-                                  key={quantityNum + 1}
-                                  value={quantityNum + 1}
-                                >
-                                  {quantityNum + 1}
-                                </option>
-                              )
-                            )}
-                          </Select>
-                        </FormControl>
+                            <InputLabel id="qty-label">Qty</InputLabel>
+                            <Select
+                              native
+                              labelId="qty-label"
+                              id="qty-label"
+                              value={item.quantity}
+                              // issue: https://github.com/mui-org/material-ui/issues/16065
+                              onChange={(e) => {
+                                addProductToCart(
+                                  item.product,
+                                  Number(e.target.value)
+                                );
+                              }}
+                            >
+                              {[...Array(item.countInStock).keys()].map(
+                                (quantityNum) => (
+                                  <option
+                                    key={quantityNum + 1}
+                                    value={quantityNum + 1}
+                                  >
+                                    {quantityNum + 1}
+                                  </option>
+                                )
+                              )}
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <div
+                          className={`${classes.cartItem} ${classes.ListWrapper}`}
+                        >
+                          <IconButton
+                            aria-label="remove from cart"
+                            color="secondary"
+                          >
+                            <DeleteIcon fontSize="large" />
+                          </IconButton>
+                        </div>
                       </div>
                     </ListItem>
                   ))}
@@ -142,8 +164,75 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
             </Grid>
           )}
         </Grid>
-        <Grid item md={2}></Grid>
-        <Grid item md={2}></Grid>
+        <Grid style={{ width: "100%" }} item md={5}>
+          <Paper className={classes.checkoutWrapper} elevation={3}>
+            <List style={{ padding: "8px" }}>
+              <Typography
+                component="p"
+                variant="h4"
+                style={{ textAlign: "center", margin: "16px 0" }}
+              >
+                Order Summary
+              </Typography>
+              <Divider />
+              <ListItem
+                className={`${classes.cartItem} ${classes.checkoutItem}`}
+              >
+                <Typography component="span" variant="h5">
+                  Subtotal:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  <strong>
+                    ${" "}
+                    {cartItems.reduce(
+                      (accumulator, item) =>
+                        accumulator + item.price * item.quantity,
+                      0
+                    )}
+                  </strong>
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem
+                className={`${classes.cartItem} ${classes.checkoutItem}`}
+              >
+                <Typography component="span" variant="h5">
+                  Delivery:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  <strong>Free</strong>
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem
+                className={`${classes.cartItem} ${classes.checkoutItem}`}
+              >
+                <Typography component="span" variant="h5">
+                  Total:
+                </Typography>
+                <Typography color="primary" component="span" variant="h5">
+                  <strong>
+                    ${" "}
+                    {cartItems.reduce(
+                      (accumulator, item) =>
+                        accumulator + item.price * item.quantity,
+                      0
+                    )}
+                  </strong>
+                </Typography>
+              </ListItem>
+              <Divider />
+              <Button
+                className={classes.ButtonWrapper}
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Proceed To Checkout
+              </Button>
+            </List>
+          </Paper>
+        </Grid>
       </Grid>
     </>
   );
