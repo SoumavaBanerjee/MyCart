@@ -127,7 +127,6 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                               labelId="qty-label"
                               id="qty-label"
                               value={item.quantity}
-                              // issue: https://github.com/mui-org/material-ui/issues/16065
                               onChange={(e) => {
                                 addProductToCart(
                                   item.product,
@@ -148,9 +147,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                             </Select>
                           </FormControl>
                         </div>
-                        <div
-                          className={`${classes.cartItem} ${classes.ListWrapper}`}
-                        >
+                        <div className={`${classes.cartItem}`}>
                           <IconButton
                             aria-label="remove from cart"
                             color="secondary"
