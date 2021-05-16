@@ -36,10 +36,8 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
     location.search ? location.search.split("=")[1] : "1"
   );
 
-  const { addProductToCart } = useAction();
+  const { addProductToCart, removeProductFromCart } = useAction();
   const { cartItems } = useTypedSelector((state) => state.Cart);
-
-  console.log(cartItems);
 
   useEffect(() => {
     if (productId) {
@@ -47,6 +45,12 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, quantity]);
+
+  const checkoutHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    history.push("/login?redirect=shipping");
+  };
 
   return (
     <>
@@ -150,6 +154,10 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                           <IconButton
                             aria-label="remove from cart"
                             color="secondary"
+                            onClick={(e) => {
+                              history.push("/cart");
+                              removeProductFromCart(item.product);
+                            }}
                           >
                             <DeleteIcon fontSize="large" />
                           </IconButton>
@@ -228,6 +236,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                 className={classes.ButtonWrapper}
                 variant="contained"
                 color="primary"
+                onClick={checkoutHandler}
                 fullWidth
               >
                 Proceed To Checkout

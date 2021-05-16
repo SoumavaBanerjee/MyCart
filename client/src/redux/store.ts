@@ -7,8 +7,6 @@ const localCartItems = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems")!)
   : [];
 
-console.log(localCartItems);
-
 // type the cart properly later
 const initialState = {
   Cart: {

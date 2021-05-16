@@ -24,6 +24,9 @@ export const addProductToCart =
     });
 
     // persisting updated cart in local storage
+
+    console.log(getState().Cart.cartItems);
+
     localStorage.setItem(
       "cartItems",
       JSON.stringify(getState().Cart.cartItems)
@@ -39,4 +42,10 @@ export const removeProductFromCart =
         product: id,
       },
     });
+
+    // persist updated state in localstorage
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getState().Cart.cartItems)
+    );
   };
