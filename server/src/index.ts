@@ -5,7 +5,7 @@ import morgan from "morgan";
 import * as dotenv from "dotenv";
 
 import { connectDB, connectLocalDB } from "./config/db";
-import { homeRouter, productRouter } from "./routes/";
+import { homeRouter, productRouter, userRouter } from "./routes/";
 import { errorHandler, notFoundHandler } from "./middlewares/";
 dotenv.config();
 process.env.NODE_ENV === "test" ? connectLocalDB() : connectDB();
@@ -25,6 +25,7 @@ if (process.env.NODE_ENV !== "test") app.use(morgan("dev"));
 // api endpoints
 app.use(homeRouter);
 app.use("/api", productRouter);
+app.use("/api/users", userRouter);
 
 // error handling middlewares
 app.use(errorHandler);

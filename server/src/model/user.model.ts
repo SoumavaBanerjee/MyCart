@@ -1,7 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import { IUser } from "../interface";
+import bcrypt from "bcryptjs";
 
-const UserSchema: Schema = new Schema(
+const UserSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -28,6 +29,11 @@ const UserSchema: Schema = new Schema(
   },
   { timestamps: true }
 );
+
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+  let isValidPassword = await bcrypt.compare(enteredPassword, this.password);
+  return isValidPassword;
+};
 
 const User = mongoose.model<IUser>("User", UserSchema);
 export default User;
