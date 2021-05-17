@@ -28,7 +28,7 @@ interface Prop extends RouteComponentProps<matchId> {}
 const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
   const classes = useStyles();
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   console.log(quantity);
   // const product = Products.find((product) => product._id === match.params.id);
@@ -68,7 +68,7 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
             <Button
               className={classes.ButtonWrapper}
               variant="outlined"
-              color="secondary"
+              color="primary"
             >
               Go back
             </Button>
@@ -187,7 +187,6 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
                           setQuantity(e.target.value);
                         }}
                       >
-                        {/* <MenuItem value={10}>Ten</MenuItem> */}
                         {[...Array(data.countInStock).keys()].map(
                           (quantityNum) => (
                             <option
@@ -208,7 +207,7 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
                   className={classes.ButtonWrapper}
                   onClick={cartHandler}
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   fullWidth
                   disabled={data.countInStock === 0}
                 >

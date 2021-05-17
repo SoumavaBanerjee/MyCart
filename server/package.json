@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "http://192.168.0.102:5000",
   "scripts": {
     "start": "  ts-node-dev src/index.ts",
     "data:import": "ts-node src/seeder.ts ",
