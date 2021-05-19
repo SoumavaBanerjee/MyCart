@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "  ts-node-dev src/index.ts",
+    "start": "  ts-node-dev --files src/index.ts",
     "data:import": "ts-node src/seeder.ts ",
     "data:destroy": "ts-node src/seeder.ts -d ",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha  --exit -r  ts-node/register 'tests/**/*.ts'",

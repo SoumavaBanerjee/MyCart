@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import generateToken from "../utils/generateJwt";
 import asyncHandler from "express-async-handler";
 import User from "../model/user.model";
-import { IUser } from "../interface";
+import { IUserDoc } from "../interface";
 
 /**
  * @description authenticate users and get auth token
@@ -10,8 +10,8 @@ import { IUser } from "../interface";
  */
 
 export const authUser = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password }: IUser = req.body;
-  const user: IUser | null = await User.findOne({ email: email });
+  const { email, password }: IUserDoc = req.body;
+  const user: IUserDoc | null = await User.findOne({ email: email });
 
   if (user && (await user.matchPassword(password))) {
     res.status(200).json({

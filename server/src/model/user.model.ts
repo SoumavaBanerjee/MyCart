@@ -1,8 +1,8 @@
 import mongoose, { Schema } from "mongoose";
-import { IUser } from "../interface";
+import { IUserDoc } from "../interface";
 import bcrypt from "bcryptjs";
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema<IUserDoc>(
   {
     name: {
       type: String,
@@ -35,5 +35,5 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
   return isValidPassword;
 };
 
-const User = mongoose.model<IUser>("User", UserSchema);
+const User = mongoose.model<IUserDoc>("User", UserSchema);
 export default User;
