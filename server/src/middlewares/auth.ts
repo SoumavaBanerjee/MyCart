@@ -2,13 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import User from "../model/user.model";
 import asyncHandler from "express-async-handler";
-import { IUserDoc, IUser } from "../interface";
+import { IUserDoc } from "../interface";
 
 interface TokenPayload {
   id: string;
   iat: number;
   exp: number;
 }
+
 export const verifyToken = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token = req.headers.authorization;
@@ -31,7 +32,7 @@ export const verifyToken = asyncHandler(
       }
 
       const { id } = verifiedUser as TokenPayload;
-      const userDetails: IUser | null = await User.findById(id).select(
+      const userDetails: IUserDoc | null = await User.findById(id).select(
         "-password"
       );
 
