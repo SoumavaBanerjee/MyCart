@@ -35,5 +35,15 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
   return isValidPassword;
 };
 
+UserSchema.pre<IUserDoc>("save", async function (this: IUserDoc, next: any) {
+  // in case of updates, don't hash password if not modified
+  if (!this.isModified("password")) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
 const User = mongoose.model<IUserDoc>("User", UserSchema);
 export default User;
