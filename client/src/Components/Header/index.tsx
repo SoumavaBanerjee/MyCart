@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
           </Typography>
         </Link>
         <div>
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
             <Tooltip title="login">
               <IconButton className={classes.navButton}>
                 <GroupAddRoundedIcon />

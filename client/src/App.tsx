@@ -11,6 +11,7 @@ import Footer from "./Components/Footer";
 import HomeScreen from "./Screens/Home/HomeScreen";
 import ProductScreen from "./Screens/Product/ProductSceen";
 import CartScreen from "./Screens/Cart/CartScreen";
+import SignInScreen from "./Screens/SignUp/SignInScreen";
 
 const App = () => {
   const classes = useStyles();
@@ -23,6 +24,7 @@ const App = () => {
         <Container maxWidth={"lg"}>
           <main className={classes.mainWrapper}>
             <Route path="/" exact component={HomeScreen} />
+            <Route path="/login" component={SignInScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
           </main>
