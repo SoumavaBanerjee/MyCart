@@ -9,4 +9,4 @@ const config = {
 };
 
 export const loginUser = (email: string, password: string) =>
-  axios.post(url, { email, password }, config);
+  axios.post(`${url}/login`, { email, password }, config);

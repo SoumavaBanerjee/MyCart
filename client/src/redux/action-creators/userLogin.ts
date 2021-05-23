@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 
 import { loginUser } from "../../api/user";
 
-export const fetchProductDetails =
+export const signInUser =
   (email: string, password: string) =>
   async (dispatch: Dispatch<UserLoginActions>) => {
     dispatch({ type: userLoginActiontype.LOGIN_USER });
