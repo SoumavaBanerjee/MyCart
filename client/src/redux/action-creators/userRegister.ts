@@ -1,12 +1,12 @@
-import { userRegisterActiontype } from "../action-types";
-import { UserRegisterActions } from "../actions";
+import { userLoginActiontype, userRegisterActiontype } from "../action-types";
+import { loginUserSuccess, UserRegisterActions } from "../actions";
 import { Dispatch } from "redux";
 
 import { registerUser } from "../../api/user";
 
 export const registerNewUser =
   (name: string, email: string, password: string) =>
-  async (dispatch: Dispatch<UserRegisterActions>) => {
+  async (dispatch: Dispatch<UserRegisterActions | loginUserSuccess>) => {
     dispatch({ type: userRegisterActiontype.REGISTER_USER });
     try {
       const { data } = await registerUser(name, email, password);
@@ -16,8 +16,13 @@ export const registerNewUser =
         payload: data,
       });
 
-      //   set userdata in localStorage
+      // login the user as well
+      dispatch({
+        type: userLoginActiontype.LOGIN_USER_SUCCESS,
+        payload: data,
+      });
 
+      // set userdata in localStorage
       localStorage.setItem("userData", JSON.stringify(data));
     } catch (error) {
       dispatch({

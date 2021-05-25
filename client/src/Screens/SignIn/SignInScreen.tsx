@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
 import { Link, RouteComponentProps } from "react-router-dom";
-import FormContainer from "../../Components/FormContainer/";
+import FormContainer from "../../Components/FormContainer";
 
 import useAction from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
