@@ -1,5 +1,5 @@
-import { userLoginActiontype } from "../action-types";
-import { UserLoginActions } from "../actions";
+import { userLoginActiontype, userLogoutActiontype } from "../action-types";
+import { UserLoginActions, UserLogoutActions } from "../actions";
 import { Dispatch } from "redux";
 
 import { loginUser } from "../../api/user";
@@ -28,4 +28,10 @@ export const signInUser =
             : error.message,
       });
     }
+  };
+
+export const signOutUser =
+  () => async (dispatch: Dispatch<UserLogoutActions>) => {
+    localStorage.removeItem("userData");
+    dispatch({ type: userLogoutActiontype.LOGOUT_USER });
   };

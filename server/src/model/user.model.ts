@@ -6,11 +6,10 @@ const UserSchema = new Schema<IUserDoc>(
   {
     name: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Your email cannot be blank"],
       unique: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -19,7 +18,7 @@ const UserSchema = new Schema<IUserDoc>(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Your password cannot be blank"],
     },
     isAdmin: {
       type: Boolean,

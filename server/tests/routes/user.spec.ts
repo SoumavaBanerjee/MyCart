@@ -20,7 +20,6 @@ describe("user  route", () => {
           password: "frost1234",
         })
         .end((err, res) => {
-          console.log(res);
           expect(res.status).to.equal(200);
           expect(err).to.not.exist;
           expect(res.body).to.have.property("token");

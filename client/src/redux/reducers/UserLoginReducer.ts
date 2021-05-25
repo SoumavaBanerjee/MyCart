@@ -1,5 +1,5 @@
-import { userLoginActiontype } from "../action-types";
-import { UserLoginActions } from "../actions";
+import { userLoginActiontype, userLogoutActiontype } from "../action-types";
+import { UserLoginActions, UserLogoutActions } from "../actions";
 import { user } from "../../Types";
 
 interface loginUserState {
@@ -16,7 +16,7 @@ const initialState: loginUserState = {
 
 const loginUserReducer = (
   state: loginUserState = initialState,
-  action: UserLoginActions
+  action: UserLoginActions | UserLogoutActions
 ): loginUserState => {
   switch (action.type) {
     case userLoginActiontype.LOGIN_USER:
@@ -25,6 +25,8 @@ const loginUserReducer = (
       return { data: action.payload, error: null, loading: false };
     case userLoginActiontype.LOGIN_USER_FAILURE:
       return { data: null, error: action.payload, loading: false };
+    case userLogoutActiontype.LOGOUT_USER:
+      return { data: null, error: null, loading: false };
     default:
       return state;
   }
