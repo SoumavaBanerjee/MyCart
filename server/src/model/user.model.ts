@@ -1,16 +1,15 @@
 import mongoose, { Schema } from "mongoose";
-import { IUser } from "../interface";
+import { IUserDoc } from "../interface";
 import bcrypt from "bcryptjs";
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema<IUserDoc>(
   {
     name: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Your email cannot be blank"],
       unique: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -19,7 +18,7 @@ const UserSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Your password cannot be blank"],
     },
     isAdmin: {
       type: Boolean,
@@ -35,5 +34,15 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
   return isValidPassword;
 };
 
-const User = mongoose.model<IUser>("User", UserSchema);
+UserSchema.pre<IUserDoc>("save", async function (this: IUserDoc, next: any) {
+  // in case of updates, don't hash password if not modified
+  if (!this.isModified("password")) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+const User = mongoose.model<IUserDoc>("User", UserSchema);
 export default User;

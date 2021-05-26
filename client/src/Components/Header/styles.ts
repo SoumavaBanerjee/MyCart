@@ -9,4 +9,18 @@ export default makeStyles((theme) => ({
   navButton: {
     marginRight: theme.spacing(2),
   },
+  avatar: {
+    color: theme.palette.getContrastText(theme.palette.primary.main),
+    backgroundColor: theme.palette.primary.main,
+    marginRight: theme.spacing(2),
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  headerIconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "fit-content",
+  },
 }));

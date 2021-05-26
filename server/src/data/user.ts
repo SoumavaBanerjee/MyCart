@@ -4,6 +4,7 @@ export const mockUsers = [
   {
     name: "Soumava Banerjee",
     email: "soumava.rivu@gmail.com",
+    // that's not my true password btw
     password: bcrypt.hashSync("frost1234", 10),
     isAdmin: true,
   },

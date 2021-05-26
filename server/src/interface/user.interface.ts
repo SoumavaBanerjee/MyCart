@@ -1,6 +1,15 @@
 import { Document } from "mongoose";
 
-export interface IUser extends Document {
+// IUser to be used in express module augmentation. see types-d.ts
+export interface IUser {
+  name: string;
+  email: string;
+  password?: string;
+  isAdmin: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+export interface IUserDoc extends Document {
   name: string;
   email: string;
   password: string;
