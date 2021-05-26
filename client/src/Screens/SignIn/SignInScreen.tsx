@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 
 import { Link, RouteComponentProps } from "react-router-dom";
 import FormContainer from "../../Components/FormContainer";
+
+import * as yup from "yup";
+import { useFormik } from "formik";
 
 import useAction from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -23,10 +26,33 @@ interface Prop extends RouteComponentProps {}
 
 const SignInScreen: FC<Prop> = ({ location, history }) => {
   const classes = useStyles();
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
+  // const [loginData, setLoginData] = useState({
+  //   email: "",
+  //   password: "",
+  // });
+
+  const validationSchema = yup.object({
+    email: yup
+      .string()
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password should be of minimum 8 characters length")
+      .required("Password is required"),
   });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      signInUser(values.email, values.password);
+    },
+  });
+
   const { signInUser } = useAction();
   const { data, error, loading } = useTypedSelector((state) => state.userLogin);
   const redirect = location.search ? location.search.split("=")[1] : "/";
@@ -35,10 +61,10 @@ const SignInScreen: FC<Prop> = ({ location, history }) => {
     if (data) history.push(redirect);
   }, [redirect, history, data]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signInUser(loginData.email, loginData.password);
-  };
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   signInUser(loginData.email, loginData.password);
+  // };
 
   return (
     <>
@@ -66,7 +92,10 @@ const SignInScreen: FC<Prop> = ({ location, history }) => {
             </Alert>
           )}
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              formik.handleSubmit();
+            }}
             className={classes.form}
             noValidate
             autoComplete="off"
@@ -79,10 +108,10 @@ const SignInScreen: FC<Prop> = ({ location, history }) => {
               id="email"
               label="Email Address"
               name="email"
-              value={loginData.email}
-              onChange={(e) =>
-                setLoginData({ ...loginData, email: e.target.value })
-              }
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
               autoFocus
             />
             <TextField
@@ -91,10 +120,10 @@ const SignInScreen: FC<Prop> = ({ location, history }) => {
               required
               fullWidth
               name="password"
-              value={loginData.password}
-              onChange={(e) =>
-                setLoginData({ ...loginData, password: e.target.value })
-              }
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               label="Password"
               type="password"
               id="password"
