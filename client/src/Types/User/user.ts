@@ -5,3 +5,9 @@ export type user = {
   isAdmin: boolean;
   token: string;
 };
+
+export type userProfile = {
+  name: string;
+  email: string;
+  password: string;
+};

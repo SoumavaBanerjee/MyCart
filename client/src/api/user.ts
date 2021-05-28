@@ -13,3 +13,11 @@ export const loginUser = (email: string, password: string) =>
 
 export const registerUser = (name: string, email: string, password: string) =>
   axios.post(url, { name, email, password }, config);
+
+export const fetchUserProfile = (id: string, bearerToken: string) =>
+  axios.get(`${url}/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });

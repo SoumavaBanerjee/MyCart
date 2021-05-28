@@ -61,9 +61,9 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
             </Tooltip>
           </Link>
 
-          <Tooltip title={data?.name ? "profile" : "login"}>
-            {data ? (
-              <>
+          {data ? (
+            <>
+              <Tooltip title={`${data.name.split(" ")[0]}`}>
                 <Avatar
                   onClick={handleClick}
                   className={classes.avatar}
@@ -71,36 +71,42 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
                 >
                   {data.name[0]}
                 </Avatar>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <Divider />
-                  <Link
-                    to="/"
-                    style={{ textDecoration: "none", color: "white" }}
-                  >
-                    <MenuItem onClick={logoutUser}>Logout</MenuItem>
-                  </Link>
-                </Menu>
-              </>
-            ) : (
-              <>
+              </Tooltip>
+
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
                 <Link
-                  to="/login"
+                  to="/profile"
                   style={{ textDecoration: "none", color: "white" }}
                 >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                </Link>
+
+                <Divider />
+                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                  <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                </Link>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <Tooltip title="login">
                   <IconButton className={classes.navButton}>
                     <GroupAddRoundedIcon />
                   </IconButton>
-                </Link>
-              </>
-            )}
-          </Tooltip>
+                </Tooltip>
+              </Link>
+            </>
+          )}
         </div>
       </Toolbar>
     </AppBar>

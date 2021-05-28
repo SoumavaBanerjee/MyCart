@@ -98,7 +98,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                         <Typography variant="body1" component="div">
                           <Link
                             className={classes.cartLinkWrapper}
-                            to={`/products/${item.product}`}
+                            to={`/product/${item.product}`}
                           >
                             {item.name}
                           </Link>
