@@ -18,4 +18,15 @@ export default makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  tabs: {
+    marginRight: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tabContainer: {
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+    },
+  },
 }));
