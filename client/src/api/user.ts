@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userProfile } from "../Types";
 
 const url = `http://localhost:5000/api/users`;
 
@@ -16,6 +17,14 @@ export const registerUser = (name: string, email: string, password: string) =>
 
 export const fetchUserProfile = (id: string, bearerToken: string) =>
   axios.get(`${url}/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
+
+export const updateUserProfile = (user: userProfile, bearerToken: string) =>
+  axios.put(`${url}/profile`, user, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${bearerToken}`,

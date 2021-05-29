@@ -29,7 +29,6 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue);
-    console.log(newValue);
   };
 
   const validationSchema = yup.object({
@@ -45,14 +44,20 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
       }),
   });
 
-  const { fetchUserDetails } = useAction();
+  const { fetchUserDetails, updateUserDetails } = useAction();
 
   const { data, error, loading } = useTypedSelector(
-    (state) => state.userProfile
+    (state) => state.fetchUserProfile
   );
 
   const userLoginDetail = useTypedSelector((state) => state.userLogin);
   const { data: userInfo } = userLoginDetail;
+
+  const userUpdateDetails = useTypedSelector(
+    (state) => state.updateUserProfile
+  );
+
+  const { success } = userUpdateDetails;
 
   const formik = useFormik({
     initialValues: {
@@ -62,8 +67,8 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: ({ confirmPassword, ...uservalues }) => {
+      updateUserDetails(uservalues);
     },
   });
 
@@ -119,6 +124,15 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
                   severity="error"
                 >
                   {error}
+                </Alert>
+              )}
+              {success && (
+                <Alert
+                  style={{ marginTop: "8px", width: "100%" }}
+                  variant="outlined"
+                  severity="success"
+                >
+                  Updated successfully
                 </Alert>
               )}
 

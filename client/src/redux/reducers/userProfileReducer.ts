@@ -1,23 +1,34 @@
 import { UserProfileActionType } from "../action-types/";
-import { FetchUserProfileActions } from "../actions";
+import { FetchUserProfileActions, UpdateUserProfileActions } from "../actions";
 import { userProfile } from "../../Types";
 
-interface registerUserState {
+interface fetchUserProfileState {
   loading: boolean;
   error: string | null;
   data: userProfile | null;
 }
 
-const initialState: registerUserState = {
+interface updateUserProfileState extends fetchUserProfileState {
+  success: boolean;
+}
+
+const initialFetchState: fetchUserProfileState = {
   loading: false,
   error: null,
   data: null,
 };
 
-const userProfileReducer = (
-  state: registerUserState = initialState,
+const initialUpdateState: updateUserProfileState = {
+  loading: false,
+  error: null,
+  data: null,
+  success: false,
+};
+
+export const fetchUserProfileReducer = (
+  state: fetchUserProfileState = initialFetchState,
   action: FetchUserProfileActions
-) => {
+): fetchUserProfileState => {
   switch (action.type) {
     case UserProfileActionType.FETCH_USER_PROFILE:
       return { loading: true, error: null, data: null };
@@ -30,4 +41,28 @@ const userProfileReducer = (
   }
 };
 
-export default userProfileReducer;
+export const updateUserProfileReducer = (
+  state: updateUserProfileState = initialUpdateState,
+  action: UpdateUserProfileActions
+): updateUserProfileState => {
+  switch (action.type) {
+    case UserProfileActionType.UPDATE_USER_PROFILE:
+      return { loading: true, error: null, data: null, success: false };
+    case UserProfileActionType.UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+        error: null,
+        success: true,
+      };
+    case UserProfileActionType.UPDATE_USER_PROFILE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+        data: null,
+        success: false,
+      };
+    default:
+      return state;
+  }
+};
