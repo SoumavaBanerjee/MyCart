@@ -17,8 +17,7 @@ const HomeScreen: FC = () => {
   // memoize it later using useMemo
   useEffect(() => {
     fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchProducts]);
 
   return (
     <>

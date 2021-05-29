@@ -43,8 +43,7 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
     if (productId) {
       addProductToCart(productId, quantity);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId, quantity]);
+  }, [productId, quantity, addProductToCart]);
 
   const checkoutHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>

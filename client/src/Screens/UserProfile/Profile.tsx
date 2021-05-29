@@ -28,8 +28,7 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
     email: yup.string().email().required(),
     password: yup
       .string()
-      .min(8, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
+      .min(8, "Password should be of minimum 8 characters length"),
     confirmPassword: yup
       .string()
       .test("passwords-match", "Passwords must match", function (value) {
@@ -55,7 +54,7 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("submitted");
+      console.log(values);
     },
   });
 
