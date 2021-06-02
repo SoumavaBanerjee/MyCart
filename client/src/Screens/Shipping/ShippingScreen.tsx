@@ -16,6 +16,8 @@ import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import FormContainer from "../../Components/FormContainer";
 import useStyles from "./styles";
 
+import FormStepper from "../../Components/FormSteps";
+
 interface Prop extends RouteComponentProps {}
 
 const ShippingScreen: FC<Prop> = ({ location }) => {
@@ -50,6 +52,7 @@ const ShippingScreen: FC<Prop> = ({ location }) => {
 
   return (
     <>
+      <FormStepper currentStep={1} />
       <FormContainer>
         <div className={classes.paper}>
           <form
