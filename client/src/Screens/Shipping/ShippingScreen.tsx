@@ -9,14 +9,18 @@ import { Alert } from "@material-ui/lab";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-import { Link, RouteComponentProps } from "react-router-dom";
+import useAction from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+
+import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import FormContainer from "../../Components/FormContainer";
 import useStyles from "./styles";
 
 interface Prop extends RouteComponentProps {}
 
-const ShippingScreen: FC<Prop> = ({ location, history }) => {
+const ShippingScreen: FC<Prop> = ({ location }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const validationSchema = yup.object({
     address: yup.string().required(),
@@ -25,16 +29,22 @@ const ShippingScreen: FC<Prop> = ({ location, history }) => {
     country: yup.string().required(),
   });
 
+  const cart = useTypedSelector((state) => state.Cart);
+  const { shippingAddress } = cart;
+
+  const { saveShippingAddress } = useAction();
+
   const formik = useFormik({
     initialValues: {
-      address: "",
-      city: "",
-      postalCode: "",
-      country: "",
+      address: shippingAddress?.address || "",
+      city: shippingAddress?.city || "",
+      postalCode: shippingAddress?.postalCode || "",
+      country: shippingAddress?.country || "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      saveShippingAddress(values);
+      history.push("/payments");
     },
   });
 

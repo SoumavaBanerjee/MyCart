@@ -1,5 +1,5 @@
 import { CartActionType } from "../action-types";
-import { product } from "../../Types";
+import { product, shippingAddress } from "../../Types";
 
 export interface cartAddItem {
   type: CartActionType.CART_ADD_ITEMS;
@@ -20,4 +20,9 @@ export interface cartRemoveItem {
   };
 }
 
-export type CartAction = cartAddItem | cartRemoveItem;
+export interface saveShippingAddress {
+  type: CartActionType.CART_SAVE_SHIPPING_ADDRESS;
+  payload: shippingAddress;
+}
+
+export type CartAction = cartAddItem | cartRemoveItem | saveShippingAddress;

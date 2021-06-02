@@ -6,6 +6,8 @@ import { getProductItem } from "../../api/products";
 import { Dispatch } from "redux";
 import { RootState } from "../reducers/";
 
+import { shippingAddress } from "../../Types";
+
 export const addProductToCart =
   (id: string, quantity: number) =>
   async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
@@ -48,4 +50,15 @@ export const removeProductFromCart =
       "cartItems",
       JSON.stringify(getState().Cart.cartItems)
     );
+  };
+
+export const saveShippingAddress =
+  (data: shippingAddress) => async (dispatch: Dispatch<CartAction>) => {
+    dispatch({
+      type: CartActionType.CART_SAVE_SHIPPING_ADDRESS,
+      payload: data,
+    });
+
+    // persist updated state in localstorage
+    localStorage.setItem("shippingAddress", JSON.stringify(data));
   };

@@ -1,7 +1,7 @@
 import { CartActionType } from "../action-types";
 import { CartAction } from "../actions/";
 
-import { product } from "../../Types/";
+import { product, shippingAddress } from "../../Types/";
 
 interface cartStateProduct {
   product: product["_id"];
@@ -14,10 +14,12 @@ interface cartStateProduct {
 
 interface cartState {
   cartItems: cartStateProduct[];
+  shippingAddress: shippingAddress | null;
 }
 
 const initialState: cartState = {
   cartItems: [],
+  shippingAddress: null,
 };
 
 const cartReducer = (
@@ -52,6 +54,12 @@ const cartReducer = (
         cartItems: state.cartItems.filter(
           (item) => item.product !== action.payload.product
         ),
+      };
+
+    case CartActionType.CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
 
     default:
