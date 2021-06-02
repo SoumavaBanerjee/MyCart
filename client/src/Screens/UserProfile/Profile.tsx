@@ -13,7 +13,12 @@ import PersonIcon from "@material-ui/icons/Person";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-import { Link, RouteComponentProps } from "react-router-dom";
+import {
+  Link,
+  RouteComponentProps,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 
 import useAction from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -22,8 +27,10 @@ import useStyles from "./styles";
 
 interface Prop extends RouteComponentProps {}
 
-const ProfileScreen: FC<Prop> = ({ location, history }) => {
+const ProfileScreen: FC<Prop> = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
   const notMobileDevice = useMediaQuery("(min-width:600px)");
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -46,9 +53,11 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
 
   const { fetchUserDetails, updateUserDetails } = useAction();
 
-  const { data, error, loading } = useTypedSelector(
+  const fetchedUserProfile = useTypedSelector(
     (state) => state.fetchUserProfile
   );
+
+  const { data: fetchedData } = fetchedUserProfile;
 
   const userLoginDetail = useTypedSelector((state) => state.userLogin);
   const { data: userInfo } = userLoginDetail;
@@ -61,8 +70,8 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: data?.name || "",
-      email: data?.email || "",
+      name: fetchedData?.name || "",
+      email: fetchedData?.email || "",
       password: "",
       confirmPassword: "",
     },
@@ -76,19 +85,19 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!data) {
+      if (!fetchedData) {
         fetchUserDetails("profile");
       } else {
-        formik.setFieldValue("name", data.name, false);
-        formik.setFieldValue("email", data.email, false);
+        formik.setFieldValue("name", fetchedData.name);
+        formik.setFieldValue("email", fetchedData.email);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, userInfo, data]);
+  }, [history, fetchUserDetails, userInfo, fetchedData]);
 
   return (
     <>
-      {loading && (
+      {fetchedUserProfile.loading && (
         <LinearProgress
           style={{ marginTop: "4px", marginBottom: "4px" }}
           color="primary"
@@ -117,13 +126,13 @@ const ProfileScreen: FC<Prop> = ({ location, history }) => {
               <Typography component="h1" variant="h5">
                 Profile
               </Typography>
-              {error && (
+              {fetchedUserProfile.error && (
                 <Alert
                   style={{ marginTop: "8px", width: "100%" }}
                   variant="outlined"
                   severity="error"
                 >
-                  {error}
+                  {fetchedUserProfile.error}
                 </Alert>
               )}
               {success && (

@@ -19,7 +19,7 @@ const FormContainer: React.FC<props> = ({ children, image }) => {
           </Grid>
         </>
       ) : (
-        <Grid xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           {children}
         </Grid>
       )}
