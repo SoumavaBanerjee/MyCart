@@ -62,3 +62,14 @@ export const saveShippingAddress =
     // persist updated state in localstorage
     localStorage.setItem("shippingAddress", JSON.stringify(data));
   };
+
+export const savePaymentMethod =
+  (data: string) => async (dispatch: Dispatch<CartAction>) => {
+    dispatch({
+      type: CartActionType.CART_SAVE_PAYMENT_METHOD,
+      payload: data,
+    });
+
+    // persist updated state in localstorage
+    localStorage.setItem("paymentMethod", JSON.stringify(data));
+  };

@@ -8,7 +8,7 @@ interface props {
 const FormContainer: React.FC<props> = ({ children, image }) => {
   const classes = useStyles();
   return (
-    <Grid justify="center" container>
+    <Grid className={classes.formElementContainer} justify="center" container>
       {image ? (
         <>
           <Grid item xs={12} md={6}>

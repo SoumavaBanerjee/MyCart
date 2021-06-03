@@ -15,11 +15,13 @@ interface cartStateProduct {
 interface cartState {
   cartItems: cartStateProduct[];
   shippingAddress: shippingAddress | null;
+  paymentMethod: string;
 }
 
 const initialState: cartState = {
   cartItems: [],
   shippingAddress: null,
+  paymentMethod: "stripe",
 };
 
 const cartReducer = (
@@ -60,6 +62,11 @@ const cartReducer = (
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    case CartActionType.CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       };
 
     default:

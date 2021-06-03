@@ -25,4 +25,13 @@ export interface saveShippingAddress {
   payload: shippingAddress;
 }
 
-export type CartAction = cartAddItem | cartRemoveItem | saveShippingAddress;
+export interface savePaymentMethod {
+  type: CartActionType.CART_SAVE_PAYMENT_METHOD;
+  payload: string;
+}
+
+export type CartAction =
+  | cartAddItem
+  | cartRemoveItem
+  | saveShippingAddress
+  | savePaymentMethod;
