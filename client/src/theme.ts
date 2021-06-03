@@ -11,6 +11,14 @@ const theme = createMuiTheme({
       main: red[200],
     },
   },
+  overrides: {
+    MuiStepper: {
+      root: {
+        background: "none",
+        border: "none",
+      },
+    },
+  },
 });
 
 export default responsiveFontSizes(theme);

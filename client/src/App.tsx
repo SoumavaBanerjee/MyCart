@@ -13,6 +13,11 @@ import ProductScreen from "./Screens/Product/ProductSceen";
 import CartScreen from "./Screens/Cart/CartScreen";
 import SignInScreen from "./Screens/SignIn/SignInScreen";
 import RegistrationScreen from "./Screens/Register/RegistrationScreen";
+import UserProfileScreen from "./Screens/UserProfile/Profile";
+import ShippingScreen from "./Screens/Shipping/ShippingScreen";
+
+// reset autocomplete background colors by chrome
+import "./app.css";
 
 const App = () => {
   const classes = useStyles();
@@ -27,8 +32,10 @@ const App = () => {
             <Route path="/" exact component={HomeScreen} />
             <Route path="/login" component={SignInScreen} />
             <Route path="/register" component={RegistrationScreen} />
+            <Route path="/profile" component={UserProfileScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/shipping" component={ShippingScreen} />
           </main>
         </Container>
         <Footer />

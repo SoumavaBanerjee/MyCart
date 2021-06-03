@@ -1,0 +1,7 @@
+/* reset chrome injected styles in autocomplete inputs */
+.MuiOutlinedInput-input:-webkit-autofill {
+  caret-color: #ffffe5 !important;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 100px #303030 inset !important;
+  -webkit-text-fill-color: #ffffe5 !important;
+}

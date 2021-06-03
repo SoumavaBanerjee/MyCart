@@ -40,8 +40,7 @@ const ProductSceen: React.FC<Prop> = ({ match, history }): JSX.Element => {
 
   useEffect(() => {
     fetchProductDetails(match.params.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [match]);
+  }, [match, fetchProductDetails]);
 
   const cartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     history.push(`/cart/${match.params.id}?quantity=${quantity}`);
