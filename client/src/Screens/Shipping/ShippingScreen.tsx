@@ -54,6 +54,9 @@ const ShippingScreen: FC<Prop> = ({ location }) => {
     <>
       <FormStepper currentStep={1} />
       <FormContainer>
+        <Typography className={classes.formHeader} component="h2" variant="h3">
+          SHIPPING ADDRESS
+        </Typography>
         <div className={classes.paper}>
           <form
             onSubmit={(e) => {
@@ -127,7 +130,7 @@ const ShippingScreen: FC<Prop> = ({ location }) => {
               color="primary"
               className={classes.submit}
             >
-              Submit
+              Continue
             </Button>
           </form>
         </div>

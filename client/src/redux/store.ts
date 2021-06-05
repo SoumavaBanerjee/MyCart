@@ -15,12 +15,12 @@ const localShippingAddress = localStorage.getItem("shippingAddress")
 const localLoginData = localStorage.getItem("userData")
   ? JSON.parse(localStorage.getItem("userData")!)
   : null;
-
 // type the cart properly later
 const initialState = {
   Cart: {
     cartItems: localCartItems,
     shippingAddress: localShippingAddress as shippingAddress,
+    paymentMethod: "stripe",
   },
   userLogin: {
     loading: false,

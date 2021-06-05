@@ -13,4 +13,8 @@ export default makeStyles((theme) => ({
       display: "none",
     },
   },
+  formElementContainer: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+  },
 }));
