@@ -1,5 +1,10 @@
-import React from "react";
-import { ThemeProvider, CssBaseline, Container } from "@material-ui/core";
+import React, { lazy, Suspense } from "react";
+import {
+  ThemeProvider,
+  CssBaseline,
+  Container,
+  LinearProgress,
+} from "@material-ui/core";
 import theme from "./theme";
 import useStyles from "./styles";
 
@@ -7,18 +12,26 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import "./app.css";
 
-import HomeScreen from "./Screens/Home/HomeScreen";
-import ProductScreen from "./Screens/Product/ProductSceen";
-import CartScreen from "./Screens/Cart/CartScreen";
-import SignInScreen from "./Screens/SignIn/SignInScreen";
-import RegistrationScreen from "./Screens/Register/RegistrationScreen";
-import UserProfileScreen from "./Screens/UserProfile/Profile";
-import ShippingScreen from "./Screens/Shipping/ShippingScreen";
-import PaymentMethodScreen from "./Screens/PaymentMethod/PaymentMethodScreen";
+const LazyHomeScreen = lazy(() => import("./Screens/Home/HomeScreen"));
+const LazyProductScreen = lazy(() => import("./Screens/Product/ProductSceen"));
+const LazyCartScreen = lazy(() => import("./Screens/Cart/CartScreen"));
+const LazySignInScreen = lazy(() => import("./Screens/SignIn/SignInScreen"));
+const LazyRegisterScreen = lazy(
+  () => import("./Screens/Register/RegistrationScreen")
+);
+const LazyUserProfileScreen = lazy(
+  () => import("./Screens/UserProfile/Profile")
+);
+const LazyShippingScreen = lazy(
+  () => import("./Screens/Shipping/ShippingScreen")
+);
+const LazyPaymentMethodScreen = lazy(
+  () => import("./Screens/PaymentMethod/PaymentMethodScreen")
+);
 
 // reset autocomplete background colors by chrome
-import "./app.css";
 
 const App = () => {
   const classes = useStyles();
@@ -29,16 +42,25 @@ const App = () => {
         <CssBaseline />
         <Header themeType={"dark"} />
         <Container maxWidth={"lg"}>
-          <main className={classes.mainWrapper}>
-            <Route path="/" exact component={HomeScreen} />
-            <Route path="/login" component={SignInScreen} />
-            <Route path="/register" component={RegistrationScreen} />
-            <Route path="/profile" component={UserProfileScreen} />
-            <Route path="/product/:id" component={ProductScreen} />
-            <Route path="/cart/:id?" component={CartScreen} />
-            <Route path="/shipping" component={ShippingScreen} />
-            <Route path="/payments" component={PaymentMethodScreen} />
-          </main>
+          <Suspense
+            fallback={
+              <LinearProgress
+                style={{ marginTop: "4px", marginBottom: "4px" }}
+                color="primary"
+              />
+            }
+          >
+            <main className={classes.mainWrapper}>
+              <Route path="/" exact component={LazyHomeScreen} />
+              <Route path="/login" component={LazySignInScreen} />
+              <Route path="/register" component={LazyRegisterScreen} />
+              <Route path="/profile" component={LazyUserProfileScreen} />
+              <Route path="/product/:id" component={LazyProductScreen} />
+              <Route path="/cart/:id?" component={LazyCartScreen} />
+              <Route path="/shipping" component={LazyShippingScreen} />
+              <Route path="/payments" component={LazyPaymentMethodScreen} />
+            </main>
+          </Suspense>
         </Container>
         <Footer />
       </ThemeProvider>
