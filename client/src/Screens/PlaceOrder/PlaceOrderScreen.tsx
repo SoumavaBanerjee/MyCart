@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -20,6 +21,26 @@ interface Props {}
 
 const PlaceOrderScreen: React.FC<Props> = () => {
   const cart = useTypedSelector((state) => state.Cart);
+  const { cartItems } = cart;
+
+  //  compute total, tax and shipping from cart
+  const itemsPrice = cartItems.reduce(
+    (accumulator, item) => accumulator + item.price * item.quantity,
+    0
+  );
+
+  const shippingPrice = Number(
+    itemsPrice > 2000 ? 0 : ((itemsPrice * 2) / 100).toFixed(2)
+  );
+
+  const taxPrice = Number((0.15 * itemsPrice).toFixed(2));
+
+  const totalPrice = Number((itemsPrice + taxPrice + shippingPrice).toFixed(2));
+
+  const paymentHandler = (e: React.MouseEvent) => {
+    console.log("To payment");
+  };
+
   const classes = useStyles();
 
   return (
@@ -30,10 +51,10 @@ const PlaceOrderScreen: React.FC<Props> = () => {
           <Paper className={classes.orderComponents} elevation={3}>
             <Typography
               className={classes.orderText}
-              component="h4"
-              variant="h5"
+              component="h3"
+              variant="h4"
             >
-              <strong>Address</strong>
+              Address
             </Typography>
             <Typography component="p" variant="body1">
               {cart.shippingAddress?.address},
@@ -49,10 +70,11 @@ const PlaceOrderScreen: React.FC<Props> = () => {
             </Typography>
             <Typography
               className={classes.orderText}
-              component="h4"
-              variant="h5"
+              component="h3"
+              variant="h4"
             >
-              <strong>Payment Method</strong>
+              <hr className={classes.sectionDivider} />
+              Payment Method
             </Typography>
             <Typography variant="body1" component="p">
               {cart.paymentMethod}
@@ -61,10 +83,10 @@ const PlaceOrderScreen: React.FC<Props> = () => {
           <Paper className={classes.orderComponents} elevation={3}>
             <Typography
               className={classes.orderText}
-              component="h4"
-              variant="h5"
+              component="h3"
+              variant="h4"
             >
-              <strong>Order Items</strong>
+              Order Items
             </Typography>
             {cart.cartItems.length === 0 ? (
               <>
@@ -113,11 +135,9 @@ const PlaceOrderScreen: React.FC<Props> = () => {
                         className={`${classes.cartItem} ${classes.ListWrapper}`}
                       >
                         <Typography variant="body1" component="div">
-                          <strong>
-                            {" "}
-                            {item.quantity} x ${item.price} = $
-                            {item.price * item.quantity}{" "}
-                          </strong>
+                          {" "}
+                          {item.quantity} X ${item.price} = $
+                          {item.price * item.quantity}{" "}
                         </Typography>
                       </div>
                     </ListItem>
@@ -129,9 +149,62 @@ const PlaceOrderScreen: React.FC<Props> = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper className={classes.orderComponents} elevation={3}>
-            <Typography component="h2" variant="h4">
-              ORDER SUMMARY
-            </Typography>
+            <List style={{ padding: "8px" }}>
+              <Typography
+                component="p"
+                variant="h4"
+                style={{ textAlign: "center", margin: "16px 0" }}
+              >
+                Order Summary
+              </Typography>
+              <Divider />
+              <ListItem className={`${classes.cartItem} ${classes.OrderItem}`}>
+                <Typography component="span" variant="h5">
+                  Items:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  $ {itemsPrice}
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem className={`${classes.cartItem} ${classes.OrderItem}`}>
+                <Typography component="span" variant="h5">
+                  Shippping:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  {shippingPrice > 0 ? `$ ${shippingPrice}` : "Free"}
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem className={`${classes.cartItem} ${classes.OrderItem}`}>
+                <Typography component="span" variant="h5">
+                  Tax:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  $ {taxPrice}
+                </Typography>
+              </ListItem>
+              <Divider />
+              <ListItem className={`${classes.cartItem} ${classes.OrderItem}`}>
+                <Typography component="span" variant="h5">
+                  Total:
+                </Typography>
+                <Typography component="span" variant="h6">
+                  $ {totalPrice}
+                </Typography>
+              </ListItem>
+              <Divider />
+              <Button
+                className={classes.ButtonWrapper}
+                variant="contained"
+                color="primary"
+                onClick={paymentHandler}
+                fullWidth
+                disabled={cart.cartItems.length === 0}
+              >
+                Make Payment
+              </Button>
+            </List>
           </Paper>
         </Grid>
       </Grid>

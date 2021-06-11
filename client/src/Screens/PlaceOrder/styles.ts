@@ -40,4 +40,18 @@ export default makeStyles((theme) => ({
       flexDirection: "column",
     },
   },
+  sectionDivider: {
+    height: "1px",
+    background: "rgba(255, 255, 255, 0.12)",
+    width: "100%",
+    border: "thin",
+  },
+  OrderItem: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
+  ButtonWrapper: {
+    margin: `${theme.spacing(2)} 0`,
+  },
 }));
