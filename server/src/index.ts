@@ -1,11 +1,11 @@
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import * as dotenv from "dotenv";
 
 import { connectDB, connectLocalDB } from "./config/db";
-import { homeRouter, productRouter, userRouter } from "./routes/";
+import { homeRouter, productRouter, userRouter, orderRouter } from "./routes/";
 import { errorHandler, notFoundHandler } from "./middlewares/";
 dotenv.config();
 process.env.NODE_ENV === "test" ? connectLocalDB() : connectDB();
@@ -26,6 +26,7 @@ if (process.env.NODE_ENV !== "test") app.use(morgan("dev"));
 app.use(homeRouter);
 app.use("/api", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
 
 // error handling middlewares
 app.use(errorHandler);
