@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUserDoc } from "./user.interface";
 import { IProduct } from "./product.interface";
 
 interface orderItem {
@@ -25,8 +25,8 @@ interface paymentResult {
 }
 
 export interface IOrder extends Document {
-  user: IUser["_id"];
-  orderItems: [orderItem];
+  user: IUserDoc["_id"];
+  orderItems: orderItem[];
   shippingAddress: shippingAddress;
   paymentMethod: string;
   paymentResult: paymentResult;

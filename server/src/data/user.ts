@@ -18,4 +18,9 @@ export const mockUsers = [
     email: "moriarty.story@novel.com",
     password: bcrypt.hashSync("frost1234", 10),
   },
+  {
+    name: "test",
+    email: "test.email@gmail.com",
+    password: bcrypt.hashSync("frost1234", 10),
+  },
 ];

@@ -51,7 +51,7 @@ const ProfileScreen: FC<Prop> = () => {
       }),
   });
 
-  const { fetchUserDetails, updateUserDetails } = useAction();
+  const { fetchUserDetails, updateUserDetails, signOutUser } = useAction();
 
   const fetchedUserProfile = useTypedSelector(
     (state) => state.fetchUserProfile

@@ -13,7 +13,7 @@ interface TokenPayload {
 export const verifyToken = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token = req.headers.authorization;
-    console.log(token);
+
     if (!(token || token?.startsWith("Bearer"))) {
       res.status(401);
       throw new Error("Unauthorized request: token not found");
