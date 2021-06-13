@@ -60,7 +60,10 @@ export const updateUserDetails =
     } catch (error) {
       dispatch({
         type: UserProfileActionType.UPDATE_USER_PROFILE_FAILURE,
-        payload: error.message,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

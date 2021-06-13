@@ -1,44 +1,68 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Divider,
   Grid,
-  IconButton,
   List,
   ListItem,
   Paper,
   Typography,
 } from "@material-ui/core";
 
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Formsteps from "../../Components/FormSteps/";
 
 import useStyles from "./styles";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 
-interface Props {}
+import useAction from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const PlaceOrderScreen: React.FC<Props> = () => {
+interface Prop extends RouteComponentProps {}
+
+const PlaceOrderScreen: React.FC<Prop> = ({ history }) => {
   const cart = useTypedSelector((state) => state.Cart);
   const { cartItems } = cart;
 
-  //  compute total, tax and shipping from cart
+  const { createOrder } = useAction();
+
+  // compute item, total, tax and shipping from cart
   const itemsPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
     0
   );
-
   const shippingPrice = Number(
     itemsPrice > 2000 ? 0 : ((itemsPrice * 2) / 100).toFixed(2)
   );
-
   const taxPrice = Number((0.15 * itemsPrice).toFixed(2));
-
   const totalPrice = Number((itemsPrice + taxPrice + shippingPrice).toFixed(2));
+  const paymentMethod = cart.paymentMethod;
+
+  // get order state from store
+  const {
+    data: order,
+    error,
+    success,
+  } = useTypedSelector((state) => state.createOrder);
+
+  useEffect(() => {
+    // get to order_id screen upon order completion
+    if (success && order) {
+      history.push(`/order/${order._id}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, success]);
 
   const paymentHandler = (e: React.MouseEvent) => {
-    console.log("To payment");
+    e.preventDefault();
+    createOrder({
+      orderItems: cartItems,
+      paymentMethod,
+      shippingAddress: cart.shippingAddress,
+      shippingPrice,
+      taxPrice,
+      totalPrice,
+    });
   };
 
   const classes = useStyles();
@@ -194,6 +218,13 @@ const PlaceOrderScreen: React.FC<Props> = () => {
                 </Typography>
               </ListItem>
               <Divider />
+              {error && (
+                <ListItem>
+                  <Alert variant="outlined" severity="error">
+                    {error}
+                  </Alert>
+                </ListItem>
+              )}
               <Button
                 className={classes.ButtonWrapper}
                 variant="contained"

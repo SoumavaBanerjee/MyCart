@@ -4,3 +4,7 @@ export type shippingAddress = {
   postalCode: string;
   country: string;
 };
+
+export type paymentMethod = {
+  method: "paypal" | "stripe";
+};
