@@ -29,7 +29,7 @@ export interface IOrder extends Document {
   orderItems: orderItem[];
   shippingAddress: shippingAddress;
   paymentMethod: string;
-  paymentResult: paymentResult;
+  paymentResult?: paymentResult;
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
@@ -37,6 +37,6 @@ export interface IOrder extends Document {
   paidAt?: Date;
   isDelivered: boolean;
   deliveredAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

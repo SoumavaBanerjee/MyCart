@@ -7,6 +7,7 @@ import {
   ListItem,
   Paper,
   Typography,
+  Chip,
 } from "@material-ui/core";
 
 import Formsteps from "../../Components/FormSteps/";
@@ -101,7 +102,7 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history }) => {
               Payment Method
             </Typography>
             <Typography variant="body1" component="p">
-              {cart.paymentMethod}
+              <Chip variant="outlined" label={`${cart.paymentMethod}`} />
             </Typography>
           </Paper>
           <Paper className={classes.orderComponents} elevation={3}>
