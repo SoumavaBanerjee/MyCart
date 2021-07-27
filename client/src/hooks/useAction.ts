@@ -6,7 +6,7 @@ import { actionCreators } from "../redux/";
 const useAction = (): typeof actionCreators => {
   const dispatch = useDispatch();
 
-  // memoize useEffect re renders! Nice trick I found here!
+  // memoize useEffect re=renders! Nice trick I found here!
   return useMemo(() => {
     return bindActionCreators(actionCreators, dispatch);
   }, [dispatch]);

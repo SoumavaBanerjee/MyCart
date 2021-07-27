@@ -19,6 +19,8 @@ import { Alert } from "@material-ui/lab";
 import useAction from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
+import calculateCartItemsPrice from "../../Utils/priceCalculations";
+
 interface Prop extends RouteComponentProps {}
 
 const PlaceOrderScreen: React.FC<Prop> = ({ history }) => {
@@ -28,15 +30,8 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history }) => {
   const { createOrder } = useAction();
 
   // compute item, total, tax and shipping from cart
-  const itemsPrice = cartItems.reduce(
-    (accumulator, item) => accumulator + item.price * item.quantity,
-    0
-  );
-  const shippingPrice = Number(
-    itemsPrice > 2000 ? 0 : ((itemsPrice * 2) / 100).toFixed(2)
-  );
-  const taxPrice = Number((0.15 * itemsPrice).toFixed(2));
-  const totalPrice = Number((itemsPrice + taxPrice + shippingPrice).toFixed(2));
+  const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
+    calculateCartItemsPrice(cartItems);
   const paymentMethod = cart.paymentMethod;
 
   // get order state from store

@@ -10,3 +10,10 @@ export const createOrder = (order: order, bearerToken: string) =>
       Authorization: `Bearer ${bearerToken}`,
     },
   });
+
+export const fetchOrder = (bearerToken: string, id: string) =>
+  axios.get(`${url}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });

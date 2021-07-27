@@ -1,11 +1,12 @@
-import { createOrderActionType } from "../action-types";
+import { OrderActionType } from "../action-types";
 import { OrderActions } from "../actions";
-import { order } from "../../Types";
+import { order, user } from "../../Types";
 
+// all fields of order compulsory. name and email field of user optional
 interface orderState {
   success: boolean;
   error: string | null;
-  data: order | null;
+  data: (order & Partial<Pick<user, "name" | "email">>) | null;
 }
 
 const initialState: orderState = {
@@ -14,20 +15,34 @@ const initialState: orderState = {
   data: null,
 };
 
-const createOrderReducer = (
+export const createOrderReducer = (
   state: orderState = initialState,
   action: OrderActions
 ): orderState => {
   switch (action.type) {
-    case createOrderActionType.CREATE_ORDER:
+    case OrderActionType.CREATE_ORDER:
       return { data: null, error: null, success: false };
-    case createOrderActionType.CREATE_ORDER_SUCCESS:
+    case OrderActionType.CREATE_ORDER_SUCCESS:
       return { data: action.payload, error: null, success: true };
-    case createOrderActionType.CREATE_ORDER_FALIURE:
+    case OrderActionType.CREATE_ORDER_FALIURE:
       return { data: null, error: action.payload, success: false };
     default:
       return state;
   }
 };
 
-export default createOrderReducer;
+export const fetchOrderDetailsReducer = (
+  state: orderState = initialState,
+  action: OrderActions
+): orderState => {
+  switch (action.type) {
+    case OrderActionType.FETCH_ORDER_DETAILS:
+      return { data: null, error: null, success: false };
+    case OrderActionType.FETCH_ORDER_DETAILS_SUCCESS:
+      return { data: action.payload, error: null, success: true };
+    case OrderActionType.FETCH_ORDER_DETAILS_FAILURE:
+      return { data: null, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
