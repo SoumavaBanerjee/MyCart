@@ -3,12 +3,12 @@ import React from "react";
 import { Paper, Typography, List, ListItem, Divider } from "@material-ui/core";
 
 import useStyles from "./styles";
-import { orderItem } from "../../Types";
+import { cartStateProduct } from "../../Types";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
 interface Props {
-  products: orderItem[];
+  products: cartStateProduct[];
 }
 
 const CartItems: React.FC<Props> = ({ products }) => {

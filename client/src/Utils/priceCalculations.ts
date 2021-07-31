@@ -7,7 +7,17 @@ interface prices {
   totalPrice: number;
 }
 
-const calculatePrice = (cartItems: cartStateProduct[]): prices => {
+/**
+ *
+ * @param cartItems
+ * @returns prices
+ * @description retruns computed value of price details from ordered items
+ */
+
+const calculatePrice = (cartItems: cartStateProduct[] | null): prices => {
+  if (cartItems === null || cartItems.length === 0)
+    return { itemsPrice: 0, shippingPrice: 0, taxPrice: 0, totalPrice: 0 };
+
   const itemsPrice = Number(
     cartItems
       .reduce(

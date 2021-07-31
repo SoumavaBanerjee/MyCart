@@ -6,7 +6,7 @@ import { order, user } from "../../Types";
 interface orderState {
   success: boolean;
   error: string | null;
-  data: (order & Partial<Pick<user, "name" | "email">>) | null;
+  data: (order & { user?: Partial<Pick<user, "name" | "email">> }) | null;
 }
 
 const initialState: orderState = {

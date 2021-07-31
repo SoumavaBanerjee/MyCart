@@ -5,3 +5,11 @@
   -webkit-box-shadow: 0 0 0 100px #303030 inset !important;
   -webkit-text-fill-color: #ffffe5 !important;
 }
+
+* > a {
+  color: white;
+}
+
+.MuiAlert-root {
+  margin: 32px 0;
+}

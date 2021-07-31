@@ -35,7 +35,9 @@ const LazyPlaceOrderScreen = lazy(
   () => import("./Screens/PlaceOrder/PlaceOrderScreen")
 );
 
-// reset autocomplete background colors by chrome
+const LazyOrderDetailsScreen = lazy(
+  () => import("./Screens/OrderDetails/OrderDetailsScreen")
+);
 
 const App = () => {
   const classes = useStyles();
@@ -64,6 +66,7 @@ const App = () => {
               <Route path="/shipping" component={LazyShippingScreen} />
               <Route path="/payments" component={LazyPaymentMethodScreen} />
               <Route path="/placeorder" component={LazyPlaceOrderScreen} />
+              <Route path="/order/:id" component={LazyOrderDetailsScreen} />
             </main>
           </Suspense>
         </Container>

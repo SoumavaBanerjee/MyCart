@@ -12,7 +12,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "Lato",
+    fontFamily: "Lato,Prata",
     h1: {
       fontFamily: "Prata",
     },
@@ -34,6 +34,11 @@ const theme = createMuiTheme({
     subtitle1: {
       fontFamily: "Lato",
     },
+    body1: {
+      fontFamily: "Lato",
+      fontSize: 18,
+      lineHeight: 2,
+    },
   },
   props: {
     MuiTooltip: {
@@ -41,7 +46,7 @@ const theme = createMuiTheme({
     },
   },
   shape: {
-    borderRadius: 10,
+    borderRadius: 5,
   },
   overrides: {
     MuiStepper: {

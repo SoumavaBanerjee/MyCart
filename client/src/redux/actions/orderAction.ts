@@ -23,7 +23,7 @@ export interface fetchOrderDetails {
 // fetch order by id
 export interface fetchOrderDetailsSuccess {
   type: OrderActionType.FETCH_ORDER_DETAILS_SUCCESS;
-  payload: order & Pick<user, "name" | "email">;
+  payload: (order & { user: Partial<Pick<user, "name" | "email">> }) | null;
 }
 
 export interface fetchOrderDetailsFailure {
