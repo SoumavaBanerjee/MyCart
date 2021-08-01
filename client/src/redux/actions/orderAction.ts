@@ -31,10 +31,34 @@ export interface fetchOrderDetailsFailure {
   payload: string;
 }
 
+// pay order
+
+export interface payOrder {
+  type: OrderActionType.PAY_ORDER;
+}
+
+export interface payOrderSuccess {
+  type: OrderActionType.PAY_ORDER_SUCCESS;
+  payload: order;
+}
+
+export interface payOrderFailure {
+  type: OrderActionType.PAY_ORDER_FAILURE;
+  payload: string;
+}
+
+export interface payOrderReset {
+  type: OrderActionType.PAY_ORDER_RESET;
+}
+
 export type OrderActions =
   | createOrder
   | createOrderSuccess
   | createOrderFailure
   | fetchOrderDetails
   | fetchOrderDetailsSuccess
-  | fetchOrderDetailsFailure;
+  | fetchOrderDetailsFailure
+  | payOrder
+  | payOrderSuccess
+  | payOrderFailure
+  | payOrderReset;

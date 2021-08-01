@@ -46,3 +46,21 @@ export const fetchOrderDetailsReducer = (
       return state;
   }
 };
+
+export const payOrderReducer = (
+  state: orderState = initialState,
+  action: OrderActions
+): orderState => {
+  switch (action.type) {
+    case OrderActionType.PAY_ORDER:
+      return { ...initialState };
+    case OrderActionType.PAY_ORDER_SUCCESS:
+      return { data: action.payload, error: null, success: true };
+    case OrderActionType.PAY_ORDER_FAILURE:
+      return { data: null, error: action.payload, success: true };
+    case OrderActionType.PAY_ORDER_RESET:
+      return initialState;
+    default:
+      return state;
+  }
+};

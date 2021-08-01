@@ -17,3 +17,16 @@ export const fetchOrder = (bearerToken: string, id: string) =>
       Authorization: `Bearer ${bearerToken}`,
     },
   });
+
+// TODO: properly type paymentResult
+export const payOrder = (
+  orderId: string,
+  bearerToken: string,
+  paymentResult: any
+) =>
+  axios.put(`${url}/${orderId}/pay`, paymentResult, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorizaton: `Bearer ${bearerToken}`,
+    },
+  });

@@ -4,7 +4,11 @@ import { OrderActionType } from "../action-types";
 import { Dispatch } from "redux";
 import { RootState } from "../reducers/";
 
-import { createOrder as createOrderApi, fetchOrder } from "../../api/order";
+import {
+  createOrder as createOrderApi,
+  fetchOrder,
+  payOrder as payOrderApi,
+} from "../../api/order";
 import { order } from "../../Types";
 
 export const createOrder =
@@ -60,6 +64,41 @@ export const fetchOrderDetails =
     } catch (error) {
       dispatch({
         type: OrderActionType.FETCH_ORDER_DETAILS_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const payOrder =
+  (id: string, paymentResult: any) =>
+  async (dispatch: Dispatch<OrderActions>, getState: () => RootState) => {
+    dispatch({ type: OrderActionType.PAY_ORDER });
+
+    try {
+      const {
+        userLogin: { data },
+      } = getState();
+
+      if (data) {
+        const { data: payOrderData } = await payOrderApi(
+          id,
+          data.token,
+          paymentResult
+        );
+
+        dispatch({
+          type: OrderActionType.PAY_ORDER_SUCCESS,
+          payload: payOrderData,
+        });
+      } else {
+        throw new Error("Something went wrong! Please re-login again");
+      }
+    } catch (error) {
+      dispatch({
+        type: OrderActionType.PAY_ORDER_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
