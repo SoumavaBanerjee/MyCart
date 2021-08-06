@@ -7,7 +7,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+
 import { RouteComponentProps } from "react-router-dom";
+
+import { getPaypalClientId } from "../../api/payments";
 
 import useAction from "../../hooks/useAction";
 import useStyles from "./styles";
@@ -38,6 +41,14 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history, match }) => {
   useEffect(() => {
     fetchOrderDetails(match.params.id);
   }, [fetchOrderDetails, match.params.id]);
+
+  useEffect(() => {
+    const generatePaypalSdkScript = async () => {
+      const { data: paypalClientId } = await getPaypalClientId();
+      console.log(paypalClientId);
+    };
+    console.log(generatePaypalSdkScript());
+  }, []);
 
   // console.log(computedPrices);
 
