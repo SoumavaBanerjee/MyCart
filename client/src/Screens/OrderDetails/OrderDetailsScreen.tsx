@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-import {
-  Button,
-  Grid,
-  LinearProgress,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Grid, LinearProgress, Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import { PayPalButton } from "react-paypal-button-v2";
 
 import { RouteComponentProps } from "react-router-dom";
-
 import { getPaypalClientId } from "../../api/payments";
 
 import useAction from "../../hooks/useAction";
@@ -29,14 +23,22 @@ interface OrderId {
 interface Prop extends RouteComponentProps<OrderId> {}
 
 const PlaceOrderScreen: React.FC<Prop> = ({ history, match }) => {
-  const { fetchOrderDetails } = useAction();
+  const [sdkScriptReady, setsdkScriptReady] = useState({
+    loading: false,
+    loaded: false,
+  });
 
-  // get data from store
+  const { fetchOrderDetails, payOrder, resetOrderState } = useAction();
+
   const { data, error, success } = useTypedSelector(
     (state) => state.orderDetails
   );
 
-  console.log(data);
+  const {
+    data: payData,
+    error: payError,
+    success: paySuccess,
+  } = useTypedSelector((state) => state.orderPaid);
 
   useEffect(() => {
     fetchOrderDetails(match.params.id);
@@ -45,12 +47,35 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history, match }) => {
   useEffect(() => {
     const generatePaypalSdkScript = async () => {
       const { data: paypalClientId } = await getPaypalClientId();
-      console.log(paypalClientId);
+      if (!sdkScriptReady.loading && !sdkScriptReady.loaded) {
+        setsdkScriptReady({ loading: true, loaded: false });
+        const script = document.createElement("script");
+        script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}`;
+        script.addEventListener("load", () =>
+          setsdkScriptReady({ loading: false, loaded: true })
+        );
+        document.body.appendChild(script);
+        console.log("append script");
+      }
     };
-    console.log(generatePaypalSdkScript());
-  }, []);
+    if (!data || paySuccess) {
+      resetOrderState();
+      fetchOrderDetails(match.params.id);
+    } else if (!data.isPaid) {
+      if (!window.paypal) {
+        generatePaypalSdkScript();
+      } else {
+        setsdkScriptReady({ loaded: true, loading: false });
+      }
+    }
 
-  // console.log(computedPrices);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchOrderDetails, match.params.id, data, paySuccess, resetOrderState]);
+
+  const successPaymentHandler = (paymentResult: any) => {
+    console.log(paymentResult);
+    payOrder(match.params.id, paymentResult);
+  };
 
   const classes = useStyles();
 
@@ -86,6 +111,17 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history, match }) => {
                     totalPrice: data.totalPrice,
                   }}
                 />
+                {!sdkScriptReady && !(paySuccess && payData) ? (
+                  <LinearProgress
+                    style={{ marginTop: "4px", marginBottom: "4px" }}
+                    color="primary"
+                  />
+                ) : (
+                  <PayPalButton
+                    amount={data.totalPrice}
+                    onSuccess={successPaymentHandler}
+                  />
+                )}
               </Paper>
             </Grid>
           </Grid>

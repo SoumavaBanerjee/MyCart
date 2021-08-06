@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Paper, Typography, Chip } from "@material-ui/core";
+import { Paper, Typography, Chip, Radio } from "@material-ui/core";
 
 import useStyles from "./styles";
 import { shippingAddress } from "../../Types";
@@ -38,7 +38,14 @@ const OrderDetailsInfo: React.FC<Props> = ({
           <hr className={classes.sectionDivider} />
           Payment Method
         </Typography>
-        <Chip variant="outlined" label={`${paymentMethod}`} />
+        <Radio
+          checked={true}
+          value={paymentMethod}
+          name="radio-button-payament"
+        />
+        <Typography style={{ display: "inline" }} variant="body1" component="p">
+          {paymentMethod}
+        </Typography>
       </Paper>
     </>
   );

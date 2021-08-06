@@ -47,13 +47,16 @@ export const fetchOrderDetailsReducer = (
   }
 };
 
-export const payOrderReducer = (
+// Order paid since app assumes the order to be paid when fetching the state
+// in a component
+
+export const OrderPaidReducer = (
   state: orderState = initialState,
   action: OrderActions
 ): orderState => {
   switch (action.type) {
     case OrderActionType.PAY_ORDER:
-      return { ...initialState };
+      return { data: null, success: false, error: null };
     case OrderActionType.PAY_ORDER_SUCCESS:
       return { data: action.payload, error: null, success: true };
     case OrderActionType.PAY_ORDER_FAILURE:

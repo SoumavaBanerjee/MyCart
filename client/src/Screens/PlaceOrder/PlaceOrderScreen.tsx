@@ -84,7 +84,7 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history }) => {
               fullWidth
               disabled={cart.cartItems.length === 0}
             >
-              Make Payment
+              place order
             </Button>
           </Paper>
         </Grid>

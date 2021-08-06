@@ -12,7 +12,7 @@ import {
 import {
   fetchOrderDetailsReducer,
   createOrderReducer,
-  payOrderReducer,
+  OrderPaidReducer,
 } from "./orderReducer";
 
 const rootReducer = combineReducers({
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   updateUserProfile: updateUserProfileReducer,
   createOrder: createOrderReducer,
   orderDetails: fetchOrderDetailsReducer,
-  payOrder: payOrderReducer,
+  orderPaid: OrderPaidReducer,
 });
 
 export default rootReducer;

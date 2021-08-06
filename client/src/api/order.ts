@@ -19,9 +19,9 @@ export const fetchOrder = (bearerToken: string, id: string) =>
   });
 
 // TODO: properly type paymentResult
-export const payOrder = (
-  orderId: string,
+export const orderPay = (
   bearerToken: string,
+  orderId: string,
   paymentResult: any
 ) =>
   axios.put(`${url}/${orderId}/pay`, paymentResult, {

@@ -7,7 +7,7 @@ import { RootState } from "../reducers/";
 import {
   createOrder as createOrderApi,
   fetchOrder,
-  payOrder as payOrderApi,
+  orderPay,
 } from "../../api/order";
 import { order } from "../../Types";
 
@@ -75,6 +75,7 @@ export const fetchOrderDetails =
 export const payOrder =
   (id: string, paymentResult: any) =>
   async (dispatch: Dispatch<OrderActions>, getState: () => RootState) => {
+    console.log("Inside pay order action");
     dispatch({ type: OrderActionType.PAY_ORDER });
 
     try {
@@ -82,10 +83,12 @@ export const payOrder =
         userLogin: { data },
       } = getState();
 
+      console.log("payorder action creator", data);
+
       if (data) {
-        const { data: payOrderData } = await payOrderApi(
-          id,
+        const { data: payOrderData } = await orderPay(
           data.token,
+          id,
           paymentResult
         );
 
@@ -105,4 +108,9 @@ export const payOrder =
             : error.message,
       });
     }
+  };
+
+export const resetOrderState =
+  () => async (dispatch: Dispatch<OrderActions>) => {
+    dispatch({ type: OrderActionType.PAY_ORDER_RESET });
   };
