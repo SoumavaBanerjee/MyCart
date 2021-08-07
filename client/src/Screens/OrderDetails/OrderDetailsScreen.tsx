@@ -88,10 +88,12 @@ const PlaceOrderScreen: React.FC<Prop> = ({ history, match }) => {
               <OrderDetailsInfo
                 paymentMethod={data.paymentMethod}
                 shippingAddress={data.shippingAddress}
-                orderedBy={data.user?.name as string}
-                email={data.user?.email as string}
-                isPaid={data.isPaid as boolean}
-                isDelivered={data.isDelivered as boolean}
+                orderedBy={data.user?.name!}
+                email={data.user?.email!}
+                isPaid={data.isPaid!}
+                isDelivered={data.isDelivered!}
+                paidAt={data.isPaid ? data.paidAt : undefined}
+                deliveredAt={data.isDelivered ? data.DeliveredAt : undefined}
               />
               <CartItems products={data.orderItems} />
             </Grid>

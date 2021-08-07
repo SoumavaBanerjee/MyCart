@@ -7,7 +7,7 @@ import { RootState } from "../reducers/";
 import {
   createOrder as createOrderApi,
   fetchOrder,
-  orderPay,
+  orderPay as orderPayAPi,
 } from "../../api/order";
 import { order } from "../../Types";
 
@@ -86,7 +86,7 @@ export const payOrder =
       console.log("payorder action creator", data);
 
       if (data) {
-        const { data: payOrderData } = await orderPay(
+        const { data: payOrderData } = await orderPayAPi(
           data.token,
           id,
           paymentResult
@@ -110,7 +110,6 @@ export const payOrder =
     }
   };
 
-export const resetOrderState =
-  () => async (dispatch: Dispatch<OrderActions>) => {
-    dispatch({ type: OrderActionType.PAY_ORDER_RESET });
-  };
+export const resetOrderState = () => (dispatch: Dispatch<OrderActions>) => {
+  dispatch({ type: OrderActionType.PAY_ORDER_RESET });
+};

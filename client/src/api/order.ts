@@ -27,6 +27,6 @@ export const orderPay = (
   axios.put(`${url}/${orderId}/pay`, paymentResult, {
     headers: {
       "Content-Type": "application/json",
-      Authorizaton: `Bearer ${bearerToken}`,
+      Authorization: `Bearer ${bearerToken}`,
     },
   });

@@ -12,7 +12,9 @@ interface Props {
   orderedBy: string;
   email: string;
   isPaid: boolean;
+  paidAt?: Date;
   isDelivered: boolean;
+  deliveredAt?: Date;
 }
 
 const OrderDetailsInfo: React.FC<Props> = ({
@@ -22,6 +24,8 @@ const OrderDetailsInfo: React.FC<Props> = ({
   email,
   isPaid,
   isDelivered,
+  deliveredAt,
+  paidAt,
 }) => {
   const classes = useStyles();
 
@@ -43,7 +47,11 @@ const OrderDetailsInfo: React.FC<Props> = ({
         <Typography component="p" variant="body1">
           <a href={`mailto:${email}`}>{email}</a>
         </Typography>
-        {!isDelivered && (
+        {isDelivered ? (
+          <Alert variant="outlined" severity="warning">
+            Delivered on {deliveredAt}
+          </Alert>
+        ) : (
           <Alert variant="outlined" severity="warning">
             Not Delivered
           </Alert>
@@ -56,7 +64,11 @@ const OrderDetailsInfo: React.FC<Props> = ({
         <Typography component="p" variant="body1">
           {paymentMethod}
         </Typography>
-        {!isPaid && (
+        {isPaid ? (
+          <Alert variant="outlined" severity="success">
+            paid on {paidAt ? paidAt.toDateString() : ""}
+          </Alert>
+        ) : (
           <Alert variant="outlined" severity="warning">
             Not Paid
           </Alert>
