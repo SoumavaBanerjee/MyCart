@@ -17,7 +17,8 @@ export type order = {
   shippingPrice: number;
   totalPrice: number;
   isPaid?: boolean;
-  paidAt?: Date;
+  paidAt?: string;
   isDelivered?: boolean;
-  DeliveredAt?: Date;
+  DeliveredAt?: string;
+  createdAt?: string;
 };

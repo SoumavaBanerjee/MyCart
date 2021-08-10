@@ -87,3 +87,23 @@ export const updateOrderToPaid = asyncHandler(
     res.status(200).send(updatedOrder);
   }
 );
+
+/**
+ * @description get all orders of user
+ * @route GET /api/orders/userOrderList
+ * @private
+ */
+export const getUserOrders = asyncHandler(
+  async (req: Request, res: Response) => {
+    const orderList: IOrder[] | null = await Order.find({
+      user: req.user?._id,
+    });
+
+    if (!orderList) {
+      res.status(404);
+      throw new Error("No orders found");
+    }
+
+    res.status(200).send(orderList);
+  }
+);

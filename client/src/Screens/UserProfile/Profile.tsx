@@ -19,6 +19,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
+import UserOrders from "./UserOrders";
+
 import {
   Link,
   RouteComponentProps,
@@ -239,7 +241,7 @@ const ProfileScreen: FC<Prop> = () => {
           )}
           {selectedTab === 1 && (
             <div className={classes.paper}>
-              <h2>Orders</h2>
+              <UserOrders />
             </div>
           )}
         </Grid>

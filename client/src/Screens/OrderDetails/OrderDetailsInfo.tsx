@@ -12,9 +12,9 @@ interface Props {
   orderedBy: string;
   email: string;
   isPaid: boolean;
-  paidAt?: Date;
+  paidAt?: string;
   isDelivered: boolean;
-  deliveredAt?: Date;
+  deliveredAt?: string;
 }
 
 const OrderDetailsInfo: React.FC<Props> = ({
@@ -66,7 +66,7 @@ const OrderDetailsInfo: React.FC<Props> = ({
         </Typography>
         {isPaid ? (
           <Alert variant="outlined" severity="success">
-            paid on {paidAt ? paidAt.toDateString() : ""}
+            paid on {paidAt}
           </Alert>
         ) : (
           <Alert variant="outlined" severity="warning">

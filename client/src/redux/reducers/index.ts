@@ -15,6 +15,8 @@ import {
   OrderPaidReducer,
 } from "./orderReducer";
 
+import fetchUserOrderListReducer from "./userOrderListReducer";
+
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -26,6 +28,7 @@ const rootReducer = combineReducers({
   createOrder: createOrderReducer,
   orderDetails: fetchOrderDetailsReducer,
   orderPaid: OrderPaidReducer,
+  userOrderList: fetchUserOrderListReducer,
 });
 
 export default rootReducer;

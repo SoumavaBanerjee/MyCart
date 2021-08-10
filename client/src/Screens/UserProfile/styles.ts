@@ -29,4 +29,15 @@ export default makeStyles((theme) => ({
       justifyContent: "center",
     },
   },
+  tablePaper: {
+    marginTop: theme.spacing(10),
+  },
+  tableCell: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  tableHead: {
+    backgroundColor: theme.palette.primary.dark,
+  },
 }));

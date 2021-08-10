@@ -30,3 +30,10 @@ export const orderPay = (
       Authorization: `Bearer ${bearerToken}`,
     },
   });
+
+export const fetchUserOrderList = (bearerToken: string) =>
+  axios.get(`${url}/userOrderList`, {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });
