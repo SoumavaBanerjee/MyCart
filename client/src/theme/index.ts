@@ -1,7 +1,7 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { blue, red } from "@material-ui/core/colors";
-
-const theme = createMuiTheme({
+import { createTheme, responsiveFontSizes } from "@material-ui/core";
+import shadows from "./shadows";
+import { red, blue } from "@material-ui/core/colors";
+const theme = createTheme({
   palette: {
     type: "dark",
     primary: {
@@ -40,6 +40,7 @@ const theme = createMuiTheme({
       lineHeight: 2,
     },
   },
+  shadows,
   props: {
     MuiTooltip: {
       arrow: true,

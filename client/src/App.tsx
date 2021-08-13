@@ -5,7 +5,7 @@ import {
   Container,
   LinearProgress,
 } from "@material-ui/core";
-import theme from "./theme";
+import theme from "./theme/";
 import useStyles from "./styles";
 
 import { BrowserRouter, Route } from "react-router-dom";
