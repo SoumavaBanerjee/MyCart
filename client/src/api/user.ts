@@ -30,3 +30,10 @@ export const updateUserProfile = (user: userProfile, bearerToken: string) =>
       Authorization: `Bearer ${bearerToken}`,
     },
   });
+
+export const fetchUserList = (bearerToken: string) =>
+  axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });

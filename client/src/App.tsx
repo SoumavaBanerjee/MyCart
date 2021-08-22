@@ -39,6 +39,8 @@ const LazyOrderDetailsScreen = lazy(
   () => import("./Screens/OrderDetails/OrderDetailsScreen")
 );
 
+const LazyUserListScreen = lazy(() => import("./Screens/UserList/UserList"));
+
 const App = () => {
   const classes = useStyles();
 
@@ -67,6 +69,7 @@ const App = () => {
               <Route path="/payments" component={LazyPaymentMethodScreen} />
               <Route path="/placeorder" component={LazyPlaceOrderScreen} />
               <Route path="/order/:id" component={LazyOrderDetailsScreen} />
+              <Route path="/admin/userlist" component={LazyUserListScreen} />
             </main>
           </Suspense>
         </Container>

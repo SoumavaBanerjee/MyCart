@@ -16,6 +16,7 @@ import {
 } from "./orderReducer";
 
 import fetchUserOrderListReducer from "./userOrderListReducer";
+import fetchUserListReducer from "./userListReducer";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   orderDetails: fetchOrderDetailsReducer,
   orderPaid: OrderPaidReducer,
   userOrderList: fetchUserOrderListReducer,
+  userList: fetchUserListReducer,
 });
 
 export default rootReducer;
