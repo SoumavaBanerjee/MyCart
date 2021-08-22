@@ -4,6 +4,12 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import { LinearProgress, Tab, Tabs } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useMediaQuery } from "@material-ui/core";
@@ -12,6 +18,8 @@ import PersonIcon from "@material-ui/icons/Person";
 
 import * as yup from "yup";
 import { useFormik } from "formik";
+
+import UserOrders from "./UserOrders";
 
 import {
   Link,
@@ -233,7 +241,7 @@ const ProfileScreen: FC<Prop> = () => {
           )}
           {selectedTab === 1 && (
             <div className={classes.paper}>
-              <h2>Orders</h2>
+              <UserOrders />
             </div>
           )}
         </Grid>

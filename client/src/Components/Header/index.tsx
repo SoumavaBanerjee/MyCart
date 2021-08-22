@@ -107,6 +107,48 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
               </Link>
             </>
           )}
+          {data && data.isAdmin && (
+            <Menu
+              id="Admin"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <Link
+                to="/profile"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+              </Link>
+
+              <Divider />
+              <Link
+                to="/admin/productlist"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem onClick={logoutUser}>Product List</MenuItem>
+              </Link>
+              <Divider />
+              <Link
+                to="/admin/userlist"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem onClick={handleClose}>User List</MenuItem>
+              </Link>
+              <Divider />
+              <Link
+                to="/admin/orderlist"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MenuItem onClick={handleClose}>Order List</MenuItem>
+              </Link>
+              <Divider />
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                <MenuItem onClick={logoutUser}>Logout</MenuItem>
+              </Link>
+            </Menu>
+          )}
         </div>
       </Toolbar>
     </AppBar>

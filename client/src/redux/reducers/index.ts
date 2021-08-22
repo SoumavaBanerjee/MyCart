@@ -9,7 +9,14 @@ import {
   updateUserProfileReducer,
 } from "./userProfileReducer";
 
-import createOrderReducer from "./orderReducer";
+import {
+  fetchOrderDetailsReducer,
+  createOrderReducer,
+  OrderPaidReducer,
+} from "./orderReducer";
+
+import fetchUserOrderListReducer from "./userOrderListReducer";
+import fetchUserListReducer from "./userListReducer";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -20,6 +27,10 @@ const rootReducer = combineReducers({
   fetchUserProfile: fetchUserProfileReducer,
   updateUserProfile: updateUserProfileReducer,
   createOrder: createOrderReducer,
+  orderDetails: fetchOrderDetailsReducer,
+  orderPaid: OrderPaidReducer,
+  userOrderList: fetchUserOrderListReducer,
+  userList: fetchUserListReducer,
 });
 
 export default rootReducer;

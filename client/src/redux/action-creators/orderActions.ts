@@ -1,16 +1,20 @@
 import { OrderActions } from "../actions";
-import { createOrderActionType } from "../action-types";
+import { OrderActionType } from "../action-types";
 
 import { Dispatch } from "redux";
 import { RootState } from "../reducers/";
 
-import { createOrder as createOrderApi } from "../../api/order";
+import {
+  createOrder as createOrderApi,
+  fetchOrder,
+  orderPay as orderPayAPi,
+} from "../../api/order";
 import { order } from "../../Types";
 
 export const createOrder =
   (orderDetails: order) =>
   async (dispatch: Dispatch<OrderActions>, getState: () => RootState) => {
-    dispatch({ type: createOrderActionType.CREATE_ORDER });
+    dispatch({ type: OrderActionType.CREATE_ORDER });
     try {
       const {
         userLogin: { data },
@@ -22,7 +26,7 @@ export const createOrder =
           data.token
         );
         dispatch({
-          type: createOrderActionType.CREATE_ORDER_SUCCESS,
+          type: OrderActionType.CREATE_ORDER_SUCCESS,
           payload: orderData,
         });
       } else {
@@ -30,7 +34,7 @@ export const createOrder =
       }
     } catch (error) {
       dispatch({
-        type: createOrderActionType.CREATE_ORDER_FALIURE,
+        type: OrderActionType.CREATE_ORDER_FALIURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -38,3 +42,74 @@ export const createOrder =
       });
     }
   };
+
+export const fetchOrderDetails =
+  (id: string) =>
+  async (dispatch: Dispatch<OrderActions>, getState: () => RootState) => {
+    dispatch({ type: OrderActionType.FETCH_ORDER_DETAILS });
+    try {
+      const {
+        userLogin: { data },
+      } = getState();
+
+      if (data) {
+        const { data: orderDetailData } = await fetchOrder(data.token, id);
+        dispatch({
+          type: OrderActionType.FETCH_ORDER_DETAILS_SUCCESS,
+          payload: orderDetailData,
+        });
+      } else {
+        throw new Error("Something went wrong! Please re-login again");
+      }
+    } catch (error) {
+      dispatch({
+        type: OrderActionType.FETCH_ORDER_DETAILS_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const payOrder =
+  (id: string, paymentResult: any) =>
+  async (dispatch: Dispatch<OrderActions>, getState: () => RootState) => {
+    console.log("Inside pay order action");
+    dispatch({ type: OrderActionType.PAY_ORDER });
+
+    try {
+      const {
+        userLogin: { data },
+      } = getState();
+
+      console.log("payorder action creator", data);
+
+      if (data) {
+        const { data: payOrderData } = await orderPayAPi(
+          data.token,
+          id,
+          paymentResult
+        );
+
+        dispatch({
+          type: OrderActionType.PAY_ORDER_SUCCESS,
+          payload: payOrderData,
+        });
+      } else {
+        throw new Error("Something went wrong! Please re-login again");
+      }
+    } catch (error) {
+      dispatch({
+        type: OrderActionType.PAY_ORDER_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const resetOrderState = () => (dispatch: Dispatch<OrderActions>) => {
+  dispatch({ type: OrderActionType.PAY_ORDER_RESET });
+};

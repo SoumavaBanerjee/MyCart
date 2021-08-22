@@ -1,18 +1,11 @@
 import { product } from "../Product/productItem";
-
-interface orderItem {
+import { shippingAddress } from "../shippingAddress/shippingAddress";
+export interface orderItem {
   name: string;
   quantity: number;
   image: string;
   price: number;
   product: product["_id"];
-}
-
-interface shippingAddress {
-  address: string;
-  city: string;
-  postalCode: string;
-  country: string;
 }
 
 export type order = {
@@ -23,4 +16,9 @@ export type order = {
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
+  isPaid?: boolean;
+  paidAt?: string;
+  isDelivered?: boolean;
+  DeliveredAt?: string;
+  createdAt?: string;
 };

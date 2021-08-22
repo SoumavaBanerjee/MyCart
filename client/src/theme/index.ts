@@ -1,7 +1,7 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { blue, red } from "@material-ui/core/colors";
-
-const theme = createMuiTheme({
+import { createTheme, responsiveFontSizes } from "@material-ui/core";
+import shadows from "./shadows";
+import { red, blue } from "@material-ui/core/colors";
+const theme = createTheme({
   palette: {
     type: "dark",
     primary: {
@@ -12,7 +12,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "Lato",
+    fontFamily: "Lato,Prata",
     h1: {
       fontFamily: "Prata",
     },
@@ -34,14 +34,20 @@ const theme = createMuiTheme({
     subtitle1: {
       fontFamily: "Lato",
     },
+    body1: {
+      fontFamily: "Lato",
+      fontSize: 18,
+      lineHeight: 2,
+    },
   },
+  shadows,
   props: {
     MuiTooltip: {
       arrow: true,
     },
   },
   shape: {
-    borderRadius: 10,
+    borderRadius: 5,
   },
   overrides: {
     MuiStepper: {

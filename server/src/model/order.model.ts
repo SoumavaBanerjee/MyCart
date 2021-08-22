@@ -8,7 +8,7 @@ const OrderSchema: Schema = new Schema(
       requried: true,
       ref: "User",
     },
-    orderedItems: [
+    orderItems: [
       {
         name: { type: String, required: true },
         quantity: { type: Number, required: true, default: 0 },
@@ -44,10 +44,10 @@ const OrderSchema: Schema = new Schema(
       required: true,
     },
     paymentResult: {
-      id: { type: String, required: true },
-      status: { type: String, required: true },
-      updateTime: { type: String, required: true },
-      emailAddress: { type: String, required: true },
+      id: { type: String },
+      status: { type: String },
+      updateTime: { type: String },
+      emailAddress: { type: String },
     },
     taxPrice: {
       type: Number,

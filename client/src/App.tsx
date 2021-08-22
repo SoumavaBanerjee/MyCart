@@ -5,7 +5,7 @@ import {
   Container,
   LinearProgress,
 } from "@material-ui/core";
-import theme from "./theme";
+import theme from "./theme/";
 import useStyles from "./styles";
 
 import { BrowserRouter, Route } from "react-router-dom";
@@ -35,7 +35,11 @@ const LazyPlaceOrderScreen = lazy(
   () => import("./Screens/PlaceOrder/PlaceOrderScreen")
 );
 
-// reset autocomplete background colors by chrome
+const LazyOrderDetailsScreen = lazy(
+  () => import("./Screens/OrderDetails/OrderDetailsScreen")
+);
+
+const LazyUserListScreen = lazy(() => import("./Screens/UserList/UserList"));
 
 const App = () => {
   const classes = useStyles();
@@ -64,6 +68,8 @@ const App = () => {
               <Route path="/shipping" component={LazyShippingScreen} />
               <Route path="/payments" component={LazyPaymentMethodScreen} />
               <Route path="/placeorder" component={LazyPlaceOrderScreen} />
+              <Route path="/order/:id" component={LazyOrderDetailsScreen} />
+              <Route path="/admin/userlist" component={LazyUserListScreen} />
             </main>
           </Suspense>
         </Container>

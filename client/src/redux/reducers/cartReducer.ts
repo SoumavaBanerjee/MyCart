@@ -1,16 +1,7 @@
 import { CartActionType } from "../action-types";
 import { CartAction } from "../actions/";
 
-import { product, shippingAddress } from "../../Types/";
-
-interface cartStateProduct {
-  product: product["_id"];
-  name: product["name"];
-  image: product["image"];
-  price: product["price"];
-  countInStock: product["countInStock"];
-  quantity: number;
-}
+import { shippingAddress, cartStateProduct } from "../../Types/";
 
 interface cartState {
   cartItems: cartStateProduct[];

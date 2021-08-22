@@ -44,8 +44,8 @@ const SignInScreen: FC<Prop> = ({ location, history }) => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: "moriarty.story@novel.com",
+      password: "frost1234",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

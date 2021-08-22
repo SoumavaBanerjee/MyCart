@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -27,6 +27,11 @@ app.use(homeRouter);
 app.use("/api", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+
+// endpoint to send payment environment variables to frontend
+app.get("/api/config/paypal", (req: Request, res: Response) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
 
 // error handling middlewares
 app.use(errorHandler);
