@@ -118,3 +118,86 @@ export const updateUserProfile = asyncHandler(
     }
   }
 );
+
+/**
+ * @description get list of all users
+ * @route GET /api/users/
+ * @private admin
+ */
+
+export const getUsers = asyncHandler(async (req: Request, res: Response) => {
+  const userList: IUserDoc[] = await User.find().select("-password");
+  if (userList) {
+    res.status(200).send(userList);
+  } else {
+    res.status(404);
+
+    // change error to proper response later
+    throw new Error("user not found");
+  }
+});
+
+/**
+ * @description get user by id
+ * @route GET /api/users/:id
+ * @private admin
+ */
+
+export const getUserById = asyncHandler(async (req: Request, res: Response) => {
+  const user: IUserDoc | null = await User.findById(req.params.id).select(
+    "-password"
+  );
+  if (user) {
+    res.status(200).send(user);
+  } else {
+    res.status(404);
+    throw new Error("user not found");
+  }
+});
+
+/**
+ * @description delete user
+ * @route DELETE /api/users/:id
+ * @private admin
+ */
+
+export const removeUser = asyncHandler(async (req: Request, res: Response) => {
+  const user: IUserDoc | null = await User.findById(req.params.id);
+  if (user) {
+    const deletedUser: IUserDoc | null = await User.findByIdAndDelete(user._id);
+    res.status(200).send(deletedUser);
+  } else {
+    res.status(404);
+    throw new Error("user not found");
+  }
+});
+
+/**
+ * @description update user by id
+ * @route PUT /api/users/:id
+ * @private admin
+ */
+
+export const getUserAndUpdate = asyncHandler(
+  async (req: Request, res: Response) => {
+    const user: IUserDoc | null = await User.findById(req.params.id).select(
+      "-password"
+    );
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.isAdmin = req.body.isAdmin;
+
+      await user.save();
+      res.status(204).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      });
+    } else {
+      res.status(404);
+      throw new Error("user not found");
+    }
+  }
+);

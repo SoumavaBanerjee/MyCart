@@ -37,3 +37,11 @@ export const fetchUserList = (bearerToken: string) =>
       Authorization: `Bearer ${bearerToken}`,
     },
   });
+
+export const deleteUser = (id: string, bearerToken: string) =>
+  axios.delete(`${url}/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearerToken}`,
+    },
+  });

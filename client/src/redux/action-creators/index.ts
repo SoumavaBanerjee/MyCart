@@ -7,3 +7,4 @@ export * from "./userProfile";
 export * from "./orderActions";
 export * from "./userOrderListActions";
 export * from "./userList";
+export * from "./userDelete";

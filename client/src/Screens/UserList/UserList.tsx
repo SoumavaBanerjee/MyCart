@@ -39,16 +39,19 @@ interface Props {}
 const UserList: React.FC<Props> = () => {
   const classes = useStyles();
 
-  const { fetchUserList } = useAction();
+  const { fetchUserList, deleteUser } = useAction();
 
   const { data, loading, error } = useTypedSelector((state) => state.userList);
+  const { error: deleteError, success: deleteSuccess } = useTypedSelector(
+    (state) => state.userDeleted
+  );
 
   useEffect(() => {
     fetchUserList();
-  }, [fetchUserList]);
+  }, [fetchUserList, deleteSuccess]);
 
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log("delete", e.currentTarget.value);
+  const handleDelete = (id: string) => {
+    deleteUser(id);
   };
 
   return (
@@ -59,7 +62,11 @@ const UserList: React.FC<Props> = () => {
             <AccountCircleRoundedIcon />
           </Avatar>
 
-          <Typography component="h1" variant="h5">
+          <Typography
+            style={{ marginTop: "0.5em" }}
+            component="h1"
+            variant="h5"
+          >
             Users
           </Typography>
         </div>
@@ -96,7 +103,10 @@ const UserList: React.FC<Props> = () => {
                     <TableCell align="right">
                       {row.isAdmin ? (
                         <Chip
-                          style={{ backgroundColor: "#51c625", color: "black" }}
+                          style={{
+                            backgroundColor: "rgb(125, 196, 136)",
+                            color: "black",
+                          }}
                           label="Admin"
                           deleteIcon={<CheckIcon />}
                         />
@@ -115,7 +125,9 @@ const UserList: React.FC<Props> = () => {
                         </IconButton>
                       </Link>
                       <IconButton
-                        onClick={handleDelete}
+                        onClick={() => {
+                          handleDelete(row._id);
+                        }}
                         color="secondary"
                         aria-label="delete"
                       >
