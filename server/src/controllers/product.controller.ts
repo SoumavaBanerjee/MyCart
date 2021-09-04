@@ -45,15 +45,16 @@ export const createProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const product: IProduct = new Product({
       user: req.user?._id,
-      name: "Sample Product",
-      image: "/images/sample.jpg",
-      description: "Sample Description",
-      brand: "dummy brand",
-      category: "dummy cat",
-      price: 0,
-      countInStock: 0,
+      name: "Anker powerbank",
+      image: "/images/batteryBackup.jpeg",
+      description:
+        "10,000 mah powerbank with quick-charge 2.0. Suitable for smartphones. Cables of type-C included",
+      brand: "Anker",
+      category: "Electronics",
+      price: 16,
+      countInStock: 23,
       rating: 1,
-      numReviews: 1,
+      numReviews: 4,
     });
 
     const createdProduct = await product.save();
