@@ -14,6 +14,7 @@ import {
   Paper,
   Chip,
   IconButton,
+  Button,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
@@ -24,50 +25,55 @@ import { Link } from "react-router-dom";
 import useStyles from "./styles";
 
 //icons
-import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import AddIcon from "@material-ui/icons/Add";
 //redux
 import useAction from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface Props {}
 
-const UserList: React.FC<Props> = () => {
+const ProductList: React.FC<Props> = () => {
   const classes = useStyles();
 
-  const { fetchUserList, deleteUser } = useAction();
+  const { fetchProducts } = useAction();
 
-  const { data, loading, error } = useTypedSelector((state) => state.userList);
-  const { error: deleteError, success: deleteSuccess } = useTypedSelector(
-    (state) => state.userDeleted
+  const { data, loading, error } = useTypedSelector(
+    (state) => state.productList
   );
 
   useEffect(() => {
-    fetchUserList();
-  }, [fetchUserList, deleteSuccess]);
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleDelete = (id: string) => {
-    deleteUser(id);
+    console.log("Delete");
   };
 
   return (
     <>
       <>
-        <div className={classes.userlist__heading}>
+        <div className={classes.productlist__heading}>
           <Avatar className={classes.avatar}>
-            <AccountCircleRoundedIcon />
+            <ShoppingCartIcon />
           </Avatar>
-
+          <Button
+            className={classes.productlist__heading__btn}
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+          >
+            Add new Product
+          </Button>
           <Typography
             style={{ marginTop: "0.5em" }}
             component="h1"
             variant="h5"
+            className={classes.productlist__heading__text}
           >
-            Users
+            Products
           </Typography>
         </div>
 
@@ -87,8 +93,9 @@ const UserList: React.FC<Props> = () => {
                 <TableRow className={classes.tableHead}>
                   <TableCell>ID</TableCell>
                   <TableCell align="right">NAME</TableCell>
-                  <TableCell align="right">EMAIL</TableCell>
-                  <TableCell align="right">ADMIN</TableCell>
+                  <TableCell align="right">PRICE ($)</TableCell>
+                  <TableCell align="right">CATEGORY</TableCell>
+                  <TableCell align="right">BRAND</TableCell>
                   <TableCell align="right" />
                 </TableRow>
               </TableHead>
@@ -97,29 +104,11 @@ const UserList: React.FC<Props> = () => {
                   <TableRow className={classes.tableCell} key={row._id}>
                     <TableCell>{row._id}</TableCell>
                     <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">
-                      <a href={`mailto:${row.email}`}>{row.email}</a>
-                    </TableCell>
-                    <TableCell align="right">
-                      {row.isAdmin ? (
-                        <Chip
-                          style={{
-                            backgroundColor: "rgb(125, 196, 136)",
-                            color: "black",
-                          }}
-                          label="Admin"
-                          deleteIcon={<CheckIcon />}
-                        />
-                      ) : (
-                        <Chip
-                          color="secondary"
-                          label="Not Admin"
-                          deleteIcon={<CloseIcon />}
-                        />
-                      )}
-                    </TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.category}</TableCell>
+                    <TableCell align="right">{row.brand}</TableCell>
                     <TableCell>
-                      <Link to={`/user/${row._id}`}>
+                      <Link to={`/product/${row._id}`}>
                         <IconButton color="primary" aria-label="edit">
                           <EditIcon />
                         </IconButton>
@@ -145,4 +134,4 @@ const UserList: React.FC<Props> = () => {
   );
 };
 
-export default UserList;
+export default ProductList;

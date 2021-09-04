@@ -127,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
                 to="/admin/productlist"
                 style={{ textDecoration: "none", color: "white" }}
               >
-                <MenuItem onClick={logoutUser}>Product List</MenuItem>
+                <MenuItem onClick={handleClose}>Product List</MenuItem>
               </Link>
               <Divider />
               <Link
