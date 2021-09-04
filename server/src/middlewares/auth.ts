@@ -50,3 +50,12 @@ export const verifyToken = asyncHandler(
     }
   }
 );
+
+export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user?.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not Admin");
+  }
+};

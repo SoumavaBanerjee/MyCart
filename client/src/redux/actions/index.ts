@@ -8,3 +8,4 @@ export * from "./userProfileAction";
 export * from "./orderAction";
 export * from "./userOrderListAction";
 export * from "./userListAction";
+export * from "./userDeleteAction";
