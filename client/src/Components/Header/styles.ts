@@ -24,11 +24,13 @@ export default makeStyles((theme) => ({
     width: "fit-content",
   },
   logo: {
-    "fontFamily": "Permanent Marker, cursive",
+    fontFamily: "Permanent Marker, cursive",
     backgroundColor: "#045de9",
     backgroundImage: "linear-gradient(315deg, #045de9 0%, #09c6f9 74%)",
     backgroundClip: "text",
+    "-webkitBackgroundClip": "text",
     "-webkitTextFillColor": "transparent",
+    webkitTextFillColor: "transparent",
     fontSize: 30,
   },
 }));

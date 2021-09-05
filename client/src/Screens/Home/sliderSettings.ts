@@ -4,6 +4,14 @@ export const mainCarouselSettings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        arrows: false,
+      },
+    },
+  ],
 };
 
 export const responsiveSettings = {
@@ -28,6 +36,7 @@ export const responsiveSettings = {
         slidesToShow: 2,
         slidesToScroll: 2,
         initialSlide: 2,
+        arrows: false,
       },
     },
     {
@@ -35,6 +44,7 @@ export const responsiveSettings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        arrows: false,
       },
     },
   ],

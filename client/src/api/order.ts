@@ -3,7 +3,7 @@ import { order } from "../Types";
 
 // const url = `http://localhost:5000/api/orders`;
 
-const url = `${process.env.REACT_APP_ROOT_URL}/api/orders`;
+const url = `${process.env.REACT_APP_URL}/api/orders`;
 
 export const createOrder = (order: order, bearerToken: string) =>
   axios.post(`${url}/`, order, {
