@@ -8,11 +8,10 @@ export const mainCarouselSettings = {
 
 export const responsiveSettings = {
   dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 4,
-  slidesToScroll: 4,
-  initialSlide: 0,
+  slidesToScroll: 1,
   responsive: [
     {
       breakpoint: 1024,

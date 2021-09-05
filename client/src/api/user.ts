@@ -1,7 +1,8 @@
 import axios from "axios";
 import { userProfile } from "../Types";
 
-const url = `http://localhost:5000/api/users`;
+// const url = `http://localhost:5000/api/users`;
+const url = `${process.env.REACT_APP_ROOT_URL}/api/users`;
 
 const config = {
   headers: {
