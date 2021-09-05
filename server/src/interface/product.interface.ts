@@ -3,7 +3,7 @@ import { IUser } from "./user.interface";
 import { IReview } from "./review.interface";
 
 export interface IProduct extends Document {
-  user: IUser["_id"];
+  user: string;
   name: string;
   image: string;
   description: string;
@@ -12,7 +12,7 @@ export interface IProduct extends Document {
   price: number;
   countInStock: number;
   rating: number;
-  reviews: [IReview];
+  reviews: IReview[];
   numReviews: number;
   createdAt: Date;
   updatedAt: Date;

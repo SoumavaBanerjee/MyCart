@@ -37,7 +37,7 @@ app.get("/api/config/paypal", (req: Request, res: Response) => {
 app.use(errorHandler);
 app.use(notFoundHandler);
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.info(`app running on ${environment} mode at port ${PORT} `);
 });
 
