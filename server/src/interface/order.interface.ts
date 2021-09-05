@@ -7,7 +7,7 @@ interface orderItem {
   quantity: number;
   image: string;
   price: number;
-  product: IProduct["_id"];
+  product: string;
 }
 
 interface shippingAddress {
@@ -25,7 +25,7 @@ interface paymentResult {
 }
 
 export interface IOrder extends Document {
-  user: IUserDoc["_id"];
+  user: string;
   orderItems: orderItem[];
   shippingAddress: shippingAddress;
   paymentMethod: string;

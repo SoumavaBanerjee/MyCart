@@ -48,9 +48,10 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
     <AppBar color="transparent" position="static">
       <Toolbar className={classes.navWrapper}>
         <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-          <Typography component="div" variant="h4">
+          {/* <Typography className={classes.logo} component="h3" variant="h4">
             MyCart
-          </Typography>
+          </Typography> */}
+          <h1 className={classes.logo}>MyCart</h1>
         </Link>
         <div className={classes.headerIconWrapper}>
           <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>

@@ -9,7 +9,7 @@ export const connectDB = async () => {
       useFindAndModify: true,
     });
 
-    if (process.env.NODE_ENV === "development")
+    if (process.env.NODE_ENV === "production")
       console.info(`connected to db at ${process.env.MONGO_URI}`);
   } catch (error) {
     console.error(error);
