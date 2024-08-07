@@ -234,6 +234,13 @@ const CartScreen: React.FC<Props> = ({ match, location, history }) => {
                 color="primary"
                 onClick={checkoutHandler}
                 fullWidth
+                disabled={
+                  cartItems.reduce(
+                    (accumulator, item) =>
+                      accumulator + item.price * item.quantity,
+                    0
+                  ) <= 0
+                }
               >
                 Proceed To Checkout
               </Button>
