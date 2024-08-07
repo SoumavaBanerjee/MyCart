@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: express-app
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mycart
+      - NODE_ENV = 'dev'
+      - MONGO_LOCAL_URI = mongodb://mongo:27017/mycart
+      - JWT_SECRET = "randomstring"
+      - PAYPAL_CLIENT_ID = "ENTER YOUR API KEY HERE"
+      - PORT = 5001
+    command: npm start
+    restart: always # Restart policy to handle failures
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo-data:

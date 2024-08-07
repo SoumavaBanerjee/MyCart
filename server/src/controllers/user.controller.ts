@@ -22,7 +22,7 @@ export const authUser = asyncHandler(async (req: Request, res: Response) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: generateToken(user._id as string),
     });
   } else {
     res.status(401);
@@ -58,7 +58,7 @@ export const createUser = asyncHandler(async (req: Request, res: Response) => {
       name: newUser.name,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
-      token: generateToken(newUser._id),
+      token: generateToken(newUser._id as string),
     });
   } else {
     res.status(400);
@@ -110,7 +110,7 @@ export const updateUserProfile = asyncHandler(
         name: updatedUser.name,
         email: updatedUser.email,
         isAdmin: updatedUser.isAdmin,
-        token: generateToken(updatedUser._id),
+        token: generateToken(updatedUser._id as string),
       });
     } else {
       res.status(404);

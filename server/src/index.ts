@@ -7,12 +7,14 @@ import * as dotenv from "dotenv";
 import { connectDB, connectLocalDB } from "./config/db";
 import { homeRouter, productRouter, userRouter, orderRouter } from "./routes/";
 import { errorHandler, notFoundHandler } from "./middlewares/";
+
 dotenv.config();
-process.env.NODE_ENV === "test" ? connectLocalDB() : connectDB();
+
+process.env.NODE_ENV === "dev" ? connectLocalDB() : connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const environment = process.env.NODE_ENV || "development";
+const environment = process.env.NODE_ENV || "dev";
 
 app.use(cors());
 app.use(helmet());
