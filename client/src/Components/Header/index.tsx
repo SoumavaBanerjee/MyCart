@@ -35,6 +35,8 @@ const Header: React.FC<HeaderProps> = ({ themeType }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  console.log("hello");
+
   const handleClose = () => {
     setAnchorEl(null);
   };
